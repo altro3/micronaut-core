@@ -34,7 +34,7 @@ public class NameUtils {
 
     private static final int IS_LENGTH = 2;
 
-    private static final Pattern DOT_UPPER = Pattern.compile("\\.[A-Z\\$]");
+    private static final Pattern DOT_UPPER = Pattern.compile("\\.[A-Z$]");
     private static final Pattern SERVICE_ID_REGEX = Pattern.compile("[\\p{javaLowerCase}\\d-]+");
     private static final String PREFIX_GET = "get";
     private static final String PREFIX_SET = "set";
@@ -42,6 +42,7 @@ public class NameUtils {
     private static final Pattern ENVIRONMENT_VAR_SEQUENCE = Pattern.compile("^[\\p{Lu}_{0-9}]+");
     private static final Pattern KEBAB_CASE_SEQUENCE = Pattern.compile("^(([a-z0-9])+([-.:])?)*([a-z0-9])+$");
     private static final Pattern KEBAB_REPLACEMENTS = Pattern.compile("[_ ]");
+    private static final Pattern CAMEL_CASE_PATTERN = Pattern.compile("[\\s_-]");
 
     /**
      * Checks whether the given name is a valid service identifier.
@@ -502,14 +503,11 @@ public class NameUtils {
         }
 
         final int len = propertyName.length();
-        switch (len) {
-            case 0:
-                return propertyName;
-            case 1:
-                return prefix + propertyName.toUpperCase(Locale.ENGLISH);
-            default:
-                return prefix + Character.toUpperCase(propertyName.charAt(0)) + propertyName.substring(1);
-        }
+        return switch (len) {
+            case 0 -> propertyName;
+            case 1 -> prefix + propertyName.toUpperCase(Locale.ENGLISH);
+            default -> prefix + Character.toUpperCase(propertyName.charAt(0)) + propertyName.substring(1);
+        };
     }
 
     /**
@@ -662,7 +660,7 @@ public class NameUtils {
      */
     public static String camelCase(String str, boolean lowerCaseFirstLetter) {
         StringBuilder sb = new StringBuilder(str.length());
-        for (String s : str.split("[\\s_-]")) {
+        for (String s : CAMEL_CASE_PATTERN.split(str)) {
             String capitalize = capitalize(s);
             sb.append(capitalize);
         }
