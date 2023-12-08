@@ -25,9 +25,7 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -151,11 +149,12 @@ public final class CronExpression {
         HOUR(0, 23, null),
         DAY_OF_MONTH(1, 31, null),
         MONTH(1, 12,
-                Arrays.asList("JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC")),
+                List.of("JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC")),
         DAY_OF_WEEK(1, 7,
-                Arrays.asList("MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"));
+                List.of("MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"));
 
-        final int from, to;
+        final int from;
+        final int to;
         final List<String> names;
 
         /**
@@ -176,6 +175,8 @@ public final class CronExpression {
     private static final int CRON_EXPRESSION_LENGTH_WITHOUT_SEC = 5;
     private static final int FOUR = 4;
 
+    private static final Pattern EXPRESSION_PATTERN = Pattern.compile("\\s+");
+
     private final String expr;
     private final SimpleField secondField;
     private final SimpleField minuteField;
@@ -191,7 +192,7 @@ public final class CronExpression {
 
         this.expr = expr;
 
-        final String[] parts = expr.split("\\s+"); //$NON-NLS-1$
+        final String[] parts = EXPRESSION_PATTERN.split(expr); //$NON-NLS-1$
         if (parts.length < CRON_EXPRESSION_LENGTH_WITHOUT_SEC || parts.length > CRON_EXPRESSION_LENGTH_WITH_SEC) {
             throw new IllegalArgumentException("Invalid cron expression [%s], expected 5 or 6 fields, got %s".formatted(expr, parts.length));
         }
@@ -410,7 +411,6 @@ public final class CronExpression {
                 validateRange(part);
                 validatePart(part);
                 parts.add(part);
-
             }
         }
 
@@ -438,8 +438,8 @@ public final class CronExpression {
                 fieldType.to));
             } else if (part.from != null && part.to != null && part.from > part.to) {
                 throw new IllegalArgumentException(
-                
-                "Invalid interval [%s-%s].  Rolling periods are not supported (ex. 5-1, only 1-5) since this won't give a deterministic result. Must be %s<=_<=%s".formatted(
+
+                "Invalid interval [%s-%s]. Rolling periods are not supported (ex. 5-1, only 1-5) since this won't give a deterministic result. Must be %s<=_<=%s".formatted(
                 part.from, part.to, fieldType.from, fieldType.to));
             }
         }
@@ -451,9 +451,9 @@ public final class CronExpression {
          * @return The integer value of name from the names for cron-field type
          */
         protected Integer mapValue(String value) {
-            Integer idx;
+            int idx;
             if (fieldType.names != null) {
-                idx = fieldType.names.indexOf(value.toUpperCase(Locale.getDefault()));
+                idx = fieldType.names.indexOf(value.toUpperCase());
                 if (idx >= 0) {
                     return idx + 1;
                 }
@@ -557,9 +557,9 @@ public final class CronExpression {
 
         @Override
         protected void validatePart(FieldPart part) {
-            if (part.modifier != null && Arrays.asList("L", "?").indexOf(part.modifier) == -1) {
+            if (part.modifier != null && !List.of("L", "?").contains(part.modifier)) {
                 throw new IllegalArgumentException("Invalid modifier [%s]".formatted(part.modifier));
-            } else if (part.incrementModifier != null && Arrays.asList("/", "#").indexOf(part.incrementModifier) == -1) {
+            } else if (part.incrementModifier != null && !List.of("/", "#").contains(part.incrementModifier)) {
                 throw new IllegalArgumentException("Invalid increment modifier [%s]".formatted(part.incrementModifier));
             }
         }
@@ -613,7 +613,7 @@ public final class CronExpression {
 
         @Override
         protected void validatePart(FieldPart part) {
-            if (part.modifier != null && Arrays.asList("L", "W", "?").indexOf(part.modifier) == -1) {
+            if (part.modifier != null && !List.of("L", "W", "?").contains(part.modifier)) {
                 throw new IllegalArgumentException("Invalid modifier [%s]".formatted(part.modifier));
             } else if (part.incrementModifier != null && !"/".equals(part.incrementModifier)) {
                 throw new IllegalArgumentException("Invalid increment modifier [%s]".formatted(part.incrementModifier));
