@@ -83,21 +83,15 @@ public class ExecutorFactory {
     @Bean(preDestroy = "shutdown")
     public ExecutorService executorService(ExecutorConfiguration executorConfiguration) {
         ExecutorType executorType = executorConfiguration.getType();
-        switch (executorType) {
-            case FIXED:
-                return Executors.newFixedThreadPool(executorConfiguration.getNumberOfThreads(), getThreadFactory(executorConfiguration));
-            case CACHED:
-                return Executors.newCachedThreadPool(getThreadFactory(executorConfiguration));
-            case SCHEDULED:
-                return Executors.newScheduledThreadPool(executorConfiguration.getCorePoolSize(), getThreadFactory(executorConfiguration));
-            case WORK_STEALING:
-                return Executors.newWorkStealingPool(executorConfiguration.getParallelism());
-            case THREAD_PER_TASK:
-                return LoomSupport.newThreadPerTaskExecutor(getThreadFactory(executorConfiguration));
-
-            default:
-                throw new IllegalStateException("Could not create Executor service for enum value: " + executorType);
-        }
+        return switch (executorType) {
+            case FIXED ->
+                    Executors.newFixedThreadPool(executorConfiguration.getNumberOfThreads(), getThreadFactory(executorConfiguration));
+            case CACHED -> Executors.newCachedThreadPool(getThreadFactory(executorConfiguration));
+            case SCHEDULED ->
+                    Executors.newScheduledThreadPool(executorConfiguration.getCorePoolSize(), getThreadFactory(executorConfiguration));
+            case WORK_STEALING -> Executors.newWorkStealingPool(executorConfiguration.getParallelism());
+            case THREAD_PER_TASK -> LoomSupport.newThreadPerTaskExecutor(getThreadFactory(executorConfiguration));
+        };
     }
 
     private ThreadFactory getThreadFactory(ExecutorConfiguration executorConfiguration) {

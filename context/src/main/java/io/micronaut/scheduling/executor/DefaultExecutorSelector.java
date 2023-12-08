@@ -29,6 +29,7 @@ import io.micronaut.scheduling.TaskExecutors;
 import io.micronaut.scheduling.annotation.ExecuteOn;
 import io.micronaut.scheduling.exceptions.SchedulerConfigurationException;
 import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import jakarta.inject.Singleton;
 
 import java.util.Optional;
@@ -58,8 +59,8 @@ public class DefaultExecutorSelector implements ExecutorSelector {
     @Inject
     protected DefaultExecutorSelector(
         BeanLocator beanLocator,
-        @jakarta.inject.Named(TaskExecutors.IO) BeanProvider<ExecutorService> ioExecutor,
-        @jakarta.inject.Named(TaskExecutors.BLOCKING) BeanProvider<ExecutorService> blockingExecutor) {
+        @Named(TaskExecutors.IO) BeanProvider<ExecutorService> ioExecutor,
+        @Named(TaskExecutors.BLOCKING) BeanProvider<ExecutorService> blockingExecutor) {
         this.beanLocator = beanLocator;
         this.ioExecutor = SupplierUtil.memoized(ioExecutor::get);
         this.blockingExecutor = SupplierUtil.memoized(blockingExecutor::get);

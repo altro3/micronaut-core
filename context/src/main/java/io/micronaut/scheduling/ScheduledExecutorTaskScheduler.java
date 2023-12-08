@@ -74,7 +74,7 @@ public class ScheduledExecutorTaskScheduler implements TaskScheduler {
         check("command", command).notNull();
 
         ZoneId zoneId;
-        if (timezoneId == null || timezoneId.equals("")) {
+        if (timezoneId == null || timezoneId.isEmpty()) {
             zoneId = ZoneId.systemDefault();
         } else {
             try {
