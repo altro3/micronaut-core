@@ -32,7 +32,7 @@ import java.util.concurrent.ThreadFactory;
  * @author Graeme Rocher
  * @since 1.0
  */
-@EachProperty(value = ExecutorConfiguration.PREFIX)
+@EachProperty(ExecutorConfiguration.PREFIX)
 public class UserExecutorConfiguration implements ExecutorConfiguration {
 
     /**
@@ -83,7 +83,7 @@ public class UserExecutorConfiguration implements ExecutorConfiguration {
         this.type = type == null ? ExecutorType.SCHEDULED : type;
         this.parallelism = parallelism == null ? AVAILABLE_PROCESSORS : parallelism;
         this.corePoolSize = corePoolSize == null ? AVAILABLE_PROCESSORS * 2 : corePoolSize;
-        this.virtual = virtual == null ? false : virtual;
+        this.virtual = virtual != null && virtual;
         this.threadFactoryClass = threadFactoryClass;
     }
 
@@ -143,7 +143,7 @@ public class UserExecutorConfiguration implements ExecutorConfiguration {
     }
 
     /**
-     * Sets the executor type. Default value ({@link io.micronaut.scheduling.executor.ExecutorType#SCHEDULED}).
+     * Sets the executor type. Default value ({@link ExecutorType#SCHEDULED}).
      *
      * @param type The type
      */
@@ -154,7 +154,7 @@ public class UserExecutorConfiguration implements ExecutorConfiguration {
     }
 
     /**
-     * Sets the parallelism for {@link io.micronaut.scheduling.executor.ExecutorType#WORK_STEALING}. Default value (Number of processors available to the Java virtual machine).
+     * Sets the parallelism for {@link ExecutorType#WORK_STEALING}. Default value (Number of processors available to the Java virtual machine).
      *
      * @param parallelism The parallelism
      */
@@ -165,7 +165,7 @@ public class UserExecutorConfiguration implements ExecutorConfiguration {
     }
 
     /**
-     * Sets the number of threads for {@link io.micronaut.scheduling.executor.ExecutorType#FIXED}. Default value (2 * Number of processors available to the Java virtual machine).
+     * Sets the number of threads for {@link ExecutorType#FIXED}. Default value (2 * Number of processors available to the Java virtual machine).
      *
      * @param nThreads The number of threads
      */
@@ -177,7 +177,7 @@ public class UserExecutorConfiguration implements ExecutorConfiguration {
     }
 
     /**
-     * Sets the core pool size for {@link io.micronaut.scheduling.executor.ExecutorType#SCHEDULED}. Default value (2 * Number of processors available to the Java virtual machine).
+     * Sets the core pool size for {@link ExecutorType#SCHEDULED}. Default value (2 * Number of processors available to the Java virtual machine).
      *
      * @param corePoolSize The core pool size
      */
@@ -197,7 +197,7 @@ public class UserExecutorConfiguration implements ExecutorConfiguration {
     }
 
     /**
-     * Construct a {@link UserExecutorConfiguration} for the given {@link io.micronaut.scheduling.executor.ExecutorType}.
+     * Construct a {@link UserExecutorConfiguration} for the given {@link ExecutorType}.
      *
      * @param type The type
      * @return The configuration
@@ -210,7 +210,7 @@ public class UserExecutorConfiguration implements ExecutorConfiguration {
     }
 
     /**
-     * Construct a {@link UserExecutorConfiguration} for the given {@link io.micronaut.scheduling.executor.ExecutorType}.
+     * Construct a {@link UserExecutorConfiguration} for the given {@link ExecutorType}.
      *
      * @param name The name
      * @param type The type
@@ -225,11 +225,11 @@ public class UserExecutorConfiguration implements ExecutorConfiguration {
     }
 
     /**
-     * Construct a {@link UserExecutorConfiguration} for the given {@link io.micronaut.scheduling.executor.ExecutorType}.
+     * Construct a {@link UserExecutorConfiguration} for the given {@link ExecutorType}.
      *
      * @param type The type
-     * @param num  The number of threads for {@link io.micronaut.scheduling.executor.ExecutorType#FIXED} or the parallelism for
-     *             {@link io.micronaut.scheduling.executor.ExecutorType#WORK_STEALING} or the core pool size for {@link io.micronaut.scheduling.executor.ExecutorType#SCHEDULED}
+     * @param num  The number of threads for {@link ExecutorType#FIXED} or the parallelism for
+     *             {@link ExecutorType#WORK_STEALING} or the core pool size for {@link ExecutorType#SCHEDULED}
      * @return The configuration
      */
     public static UserExecutorConfiguration of(ExecutorType type, int num) {
@@ -252,11 +252,11 @@ public class UserExecutorConfiguration implements ExecutorConfiguration {
     }
 
     /**
-     * Construct a {@link UserExecutorConfiguration} for the given {@link io.micronaut.scheduling.executor.ExecutorType}.
+     * Construct a {@link UserExecutorConfiguration} for the given {@link ExecutorType}.
      *
      * @param type               The type
-     * @param num                The number of threads for {@link io.micronaut.scheduling.executor.ExecutorType#FIXED} or the parallelism for
-     *                           {@link io.micronaut.scheduling.executor.ExecutorType#WORK_STEALING} or the core pool size for {@link io.micronaut.scheduling.executor.ExecutorType#SCHEDULED}
+     * @param num                The number of threads for {@link ExecutorType#FIXED} or the parallelism for
+     *                           {@link ExecutorType#WORK_STEALING} or the core pool size for {@link ExecutorType#SCHEDULED}
      * @param threadFactoryClass The thread factory class
      * @return The configuration
      */
