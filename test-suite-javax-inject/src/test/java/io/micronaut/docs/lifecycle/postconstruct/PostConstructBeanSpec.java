@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 public class PostConstructBeanSpec {
 
     @Test
-    public void testBeanPostConstructWithJavax() {
+    public void testBeanPostConstructWithJakarta() {
         // tag::start[]
         try(ApplicationContext ctx = ApplicationContext.run()) {
             final B bean = ctx.getBean(B.class);

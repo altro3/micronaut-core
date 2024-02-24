@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 original authors
+ * Copyright 2017-2024 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,20 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.atinject.javaxtck.auto;
+package org.atinject.tck.auto;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
+import org.atinject.tck.auto.accessories.Cupholder;
 
-public abstract class GasEngine extends Engine {
+@Singleton
+public class Seat {
 
-    @Override
-    public void injectTwiceOverriddenWithOmissionInMiddle() {
-        overriddenTwiceWithOmissionInMiddleInjected = true;
+    private final Cupholder cupholder;
+
+    @Inject
+    Seat(Cupholder cupholder) {
+        this.cupholder = cupholder;
     }
 
-    @Override
-    @Inject
-    public void injectTwiceOverriddenWithOmissionInSubclass() {
-        overriddenTwiceWithOmissionInSubclassInjected = true;
+    public Cupholder getCupholder() {
+        return cupholder;
     }
 }

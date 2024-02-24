@@ -1,11 +1,11 @@
 /*
- * Copyright 2017-2020 original authors
+ * Copyright 2017-2024 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,61 +15,66 @@
  */
 package org.atinject.jakartatck.auto.accessories
 
-import groovy.transform.PackageScope
-import org.atinject.jakartatck.auto.FuelTank
-import org.atinject.jakartatck.auto.Tire
-
 import jakarta.inject.Inject
 
-class SpareTire extends Tire {
+class SpareTire extends org.atinject.jakartatck.auto.Tire {
 
-    @PackageScope FuelTank constructorInjection = NEVER_INJECTED
-    @Inject protected FuelTank fieldInjection = NEVER_INJECTED
-    @PackageScope FuelTank methodInjection = NEVER_INJECTED
-    @Inject @PackageScope static FuelTank staticFieldInjection = NEVER_INJECTED
-    @PackageScope static FuelTank staticMethodInjection = NEVER_INJECTED
+    org.atinject.jakartatck.auto.FuelTank constructorInjection = NEVER_INJECTED
+    @Inject
+    org.atinject.jakartatck.auto.FuelTank fieldInjection = NEVER_INJECTED
+    org.atinject.jakartatck.auto.FuelTank methodInjection = NEVER_INJECTED
+    @Inject
+    static org.atinject.jakartatck.auto.FuelTank staticFieldInjection = NEVER_INJECTED
+    static org.atinject.jakartatck.auto.FuelTank staticMethodInjection = NEVER_INJECTED
 
     @Inject
-    SpareTire(FuelTank forSupertype, FuelTank forSubtype) {
+    SpareTire(org.atinject.jakartatck.auto.FuelTank forSupertype, org.atinject.jakartatck.auto.FuelTank forSubtype) {
         super(forSupertype)
         this.constructorInjection = forSubtype
     }
 
-    @Inject @PackageScope void subtypeMethodInjection(FuelTank methodInjection) {
+    @Inject
+    void subtypeMethodInjection(org.atinject.jakartatck.auto.FuelTank methodInjection) {
         if (!hasSpareTireBeenFieldInjected()) {
             methodInjectedBeforeFields = true
         }
         this.methodInjection = methodInjection
     }
 
-    @Inject @PackageScope static void subtypeStaticMethodInjection(FuelTank methodInjection) {
+    @Inject
+    static void subtypeStaticMethodInjection(org.atinject.jakartatck.auto.FuelTank methodInjection) {
         if (!hasBeenStaticFieldInjected()) {
             staticMethodInjectedBeforeStaticFields = true
         }
         staticMethodInjection = methodInjection
     }
 
-    @Inject private void injectPrivateMethod() {
+    @Inject
+    private void injectPrivateMethod() {
         if (subPrivateMethodInjected) {
             similarPrivateMethodInjectedTwice = true
         }
         subPrivateMethodInjected = true
     }
 
-    @Inject @PackageScope void injectPackagePrivateMethod() {
+    @Inject
+    void injectPackagePrivateMethod() {
         if (subPackagePrivateMethodInjected) {
             similarPackagePrivateMethodInjectedTwice = true
         }
         subPackagePrivateMethodInjected = true
     }
 
-    @Inject protected void injectProtectedMethod() {
+    @Override
+    @Inject
+    protected void injectProtectedMethod() {
         if (subProtectedMethodInjected) {
             overriddenProtectedMethodInjectedTwice = true
         }
         subProtectedMethodInjected = true
     }
 
+    @Override
     @Inject
     void injectPublicMethod() {
         if (subPublicMethodInjected) {
@@ -82,22 +87,26 @@ class SpareTire extends Tire {
         superPrivateMethodForOverrideInjected = true
     }
 
-    @PackageScope void injectPackagePrivateMethodForOverride() {
+    void injectPackagePrivateMethodForOverride() {
         superPackagePrivateMethodForOverrideInjected = true
     }
 
+    @Override
     protected void injectProtectedMethodForOverride() {
         protectedMethodForOverrideInjected = true
     }
 
+    @Override
     void injectPublicMethodForOverride() {
         publicMethodForOverrideInjected = true
     }
 
+    @Override
     boolean hasSpareTireBeenFieldInjected() {
         return fieldInjection != NEVER_INJECTED
     }
 
+    @Override
     boolean hasSpareTireBeenMethodInjected() {
         return methodInjection != NEVER_INJECTED
     }
@@ -110,23 +119,16 @@ class SpareTire extends Tire {
         return staticMethodInjection != NEVER_INJECTED
     }
 
-    private boolean spareTirePackagePrivateMethod2Injected
+    public boolean packagePrivateMethod2Injected
 
-    boolean getSpareTirePackagePrivateMethod2Injected() {
-        return spareTirePackagePrivateMethod2Injected
+    @Inject
+    void injectPackagePrivateMethod2() {
+        packagePrivateMethod2Injected = true
     }
 
-    @Inject @PackageScope void injectPackagePrivateMethod2() {
-        spareTirePackagePrivateMethod2Injected = true
-    }
+    public boolean packagePrivateMethod3Injected
 
-    private boolean spareTirePackagePrivateMethod3Injected
-
-    boolean getSpareTirePackagePrivateMethod3Injected() {
-        return spareTirePackagePrivateMethod3Injected
-    }
-
-    @PackageScope void injectPackagePrivateMethod3() {
-        spareTirePackagePrivateMethod3Injected = true
+    void injectPackagePrivateMethod3() {
+        packagePrivateMethod3Injected = true
     }
 }

@@ -1,11 +1,11 @@
 /*
- * Copyright 2017-2020 original authors
+ * Copyright 2017-2024 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,25 +15,23 @@
  */
 package org.atinject.jakartatck.auto
 
-import groovy.transform.PackageScope
-import org.atinject.jakartatck.auto.accessories.RoundThing
-import org.atinject.jakartatck.auto.accessories.SpareTire
-
 import jakarta.inject.Inject
 
-class Tire extends RoundThing {
+class Tire extends org.atinject.jakartatck.auto.accessories.RoundThing {
 
-    protected static final FuelTank NEVER_INJECTED = new FuelTank()
+    protected static final org.atinject.jakartatck.auto.FuelTank NEVER_INJECTED = new org.atinject.jakartatck.auto.FuelTank()
 
-    protected static final Set<String> moreProblems = new LinkedHashSet<String>()
+    protected static final Set<String> moreProblems = new LinkedHashSet<>()
 
-    @PackageScope FuelTank constructorInjection = NEVER_INJECTED
-    @Inject @PackageScope protected FuelTank fieldInjection = NEVER_INJECTED
-    @PackageScope FuelTank methodInjection = NEVER_INJECTED
-    @Inject @PackageScope static FuelTank staticFieldInjection = NEVER_INJECTED
-    @PackageScope static FuelTank staticMethodInjection = NEVER_INJECTED
+    org.atinject.jakartatck.auto.FuelTank constructorInjection = NEVER_INJECTED
+    @Inject
+    org.atinject.jakartatck.auto.FuelTank fieldInjection = NEVER_INJECTED
+    org.atinject.jakartatck.auto.FuelTank methodInjection = NEVER_INJECTED
+    @Inject
+    static org.atinject.jakartatck.auto.FuelTank staticFieldInjection = NEVER_INJECTED
+    static org.atinject.jakartatck.auto.FuelTank staticMethodInjection = NEVER_INJECTED
 
-    @PackageScope boolean constructorInjected
+    boolean constructorInjected
 
     protected boolean superPrivateMethodInjected
     protected boolean superPackagePrivateMethodInjected
@@ -63,11 +61,12 @@ class Tire extends RoundThing {
     public boolean overriddenPublicMethodInjectedTwice
 
     @Inject
-    Tire(FuelTank constructorInjection) {
+    Tire(org.atinject.jakartatck.auto.FuelTank constructorInjection) {
         this.constructorInjection = constructorInjection
     }
 
-    @Inject @PackageScope void supertypeMethodInjection(FuelTank methodInjection) {
+    @Inject
+    void supertypeMethodInjection(org.atinject.jakartatck.auto.FuelTank methodInjection) {
         if (!hasTireBeenFieldInjected()) {
             methodInjectedBeforeFields = true
         }
@@ -80,34 +79,38 @@ class Tire extends RoundThing {
         this.methodInjection = methodInjection
     }
 
-    @Inject @PackageScope static void supertypeStaticMethodInjection(FuelTank methodInjection) {
-        if (!hasBeenStaticFieldInjected()) {
+    @Inject
+    static void supertypeStaticMethodInjection(org.atinject.jakartatck.auto.FuelTank methodInjection) {
+        if (!Tire.hasBeenStaticFieldInjected()) {
             staticMethodInjectedBeforeStaticFields = true
         }
-        if (SpareTire.hasBeenStaticFieldInjected()) {
+        if (org.atinject.jakartatck.auto.accessories.SpareTire.hasBeenStaticFieldInjected()) {
             subtypeStaticFieldInjectedBeforeSupertypeStaticMethods = true
         }
-        if (SpareTire.hasBeenStaticMethodInjected()) {
+        if (org.atinject.jakartatck.auto.accessories.SpareTire.hasBeenStaticMethodInjected()) {
             subtypeStaticMethodInjectedBeforeSupertypeStaticMethods = true
         }
         staticMethodInjection = methodInjection
     }
 
-    @Inject private void injectPrivateMethod() {
+    @Inject
+    private void injectPrivateMethod() {
         if (superPrivateMethodInjected) {
             similarPrivateMethodInjectedTwice = true
         }
         superPrivateMethodInjected = true
     }
 
-    @Inject @PackageScope void injectPackagePrivateMethod() {
+    @Inject
+    void injectPackagePrivateMethod() {
         if (superPackagePrivateMethodInjected) {
             similarPackagePrivateMethodInjectedTwice = true
         }
         superPackagePrivateMethodInjected = true
     }
 
-    @Inject protected void injectProtectedMethod() {
+    @Inject
+    protected void injectProtectedMethod() {
         if (superProtectedMethodInjected) {
             overriddenProtectedMethodInjectedTwice = true
         }
@@ -122,15 +125,18 @@ class Tire extends RoundThing {
         superPublicMethodInjected = true
     }
 
-    @Inject private void injectPrivateMethodForOverride() {
+    @Inject
+    private void injectPrivateMethodForOverride() {
         subPrivateMethodForOverrideInjected = true
     }
 
-    @Inject @PackageScope void injectPackagePrivateMethodForOverride() {
+    @Inject
+    void injectPackagePrivateMethodForOverride() {
         subPackagePrivateMethodForOverrideInjected = true
     }
 
-    @Inject protected void injectProtectedMethodForOverride() {
+    @Inject
+    protected void injectProtectedMethodForOverride() {
         protectedMethodForOverrideInjected = true
     }
 
@@ -163,34 +169,23 @@ class Tire extends RoundThing {
         return false
     }
 
-    boolean tirePackagePrivateMethod2Injected
+    boolean packagePrivateMethod2Injected
 
-    boolean getTirePackagePrivateMethod2Injected() {
-        return tirePackagePrivateMethod2Injected
+    @Inject
+    void injectPackagePrivateMethod2() {
+        packagePrivateMethod2Injected = true
     }
 
-    @Inject @PackageScope void injectPackagePrivateMethod2() {
-        tirePackagePrivateMethod2Injected = true
+    public boolean packagePrivateMethod3Injected
+
+    @Inject
+    void injectPackagePrivateMethod3() {
+        packagePrivateMethod3Injected = true
     }
 
-    public boolean tirePackagePrivateMethod3Injected
+    public boolean packagePrivateMethod4Injected
 
-    boolean getTirePackagePrivateMethod3Injected() {
-        return tirePackagePrivateMethod3Injected
-    }
-
-    @Inject @PackageScope void injectPackagePrivateMethod3() {
-        tirePackagePrivateMethod3Injected = true
-    }
-
-    public boolean tirePackagePrivateMethod4Injected
-
-    boolean getTirePackagePrivateMethod4Injected() {
-        return tirePackagePrivateMethod4Injected
-    }
-
-    @PackageScope
     void injectPackagePrivateMethod4() {
-        tirePackagePrivateMethod4Injected = true
+        packagePrivateMethod4Injected = true
     }
 }

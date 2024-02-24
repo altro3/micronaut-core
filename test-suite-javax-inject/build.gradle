@@ -7,6 +7,4 @@ dependencies {
     testCompileOnly project(":inject-groovy")
     testImplementation project(":context")
     testImplementation project(":inject")
-    testImplementation libs.javax.inject
-    testImplementation libs.javax.annotation.api
 }

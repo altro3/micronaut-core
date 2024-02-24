@@ -1,11 +1,11 @@
 /*
- * Copyright 2017-2020 original authors
+ * Copyright 2017-2024 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,21 +15,18 @@
  */
 package org.atinject.jakartatck.auto.accessories
 
-import groovy.transform.PackageScope
-import org.atinject.jakartatck.auto.Seat
-
 import jakarta.inject.Inject
 import jakarta.inject.Provider
 import jakarta.inject.Singleton
+import spock.lang.Specification
 
 @Singleton
-class Cupholder {
+class Cupholder extends Specification {
 
-    public final Provider<Seat> seatProvider
+    public final Provider<org.atinject.jakartatck.auto.Seat> seatProvider
 
     @Inject
-    @PackageScope
-    Cupholder(Provider<Seat> seatProvider) {
+    Cupholder(Provider<org.atinject.jakartatck.auto.Seat> seatProvider) {
         this.seatProvider = seatProvider
     }
 }

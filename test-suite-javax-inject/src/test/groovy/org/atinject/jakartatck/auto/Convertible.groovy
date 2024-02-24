@@ -1,11 +1,11 @@
 /*
- * Copyright 2017-2020 original authors
+ * Copyright 2017-2024 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,28 +15,25 @@
  */
 package org.atinject.jakartatck.auto
 
-import groovy.transform.PackageScope
-import io.micronaut.context.ApplicationContext
-import io.micronaut.context.BeanContext
-import io.micronaut.context.DefaultBeanContext
-import junit.framework.TestCase
-import org.atinject.jakartatck.auto.accessories.Cupholder
-import org.atinject.jakartatck.auto.accessories.RoundThing
-import org.atinject.jakartatck.auto.accessories.SpareTire
-import spock.lang.PendingFeature
-import spock.lang.Specification
-
 import jakarta.inject.Inject
 import jakarta.inject.Named
 import jakarta.inject.Provider
+import junit.framework.TestCase
 
 class Convertible implements Car {
 
-    @Inject @Drivers Seat driversSeatA
-    @Inject @Drivers Seat driversSeatB
-    @Inject @PackageScope SpareTire spareTire
-    @Inject @PackageScope Cupholder cupholder
-    @Inject @PackageScope Provider<Engine> engineProvider
+    @Inject
+    @org.atinject.jakartatck.auto.Drivers
+    Seat driversSeatA
+    @Inject
+    @org.atinject.jakartatck.auto.Drivers
+    Seat driversSeatB
+    @Inject
+    org.atinject.jakartatck.auto.accessories.SpareTire spareTire
+    @Inject
+    org.atinject.jakartatck.auto.accessories.Cupholder cupholder
+    @Inject
+    Provider<Engine> engineProvider
 
     private boolean methodWithZeroParamsInjected
     private boolean methodWithMultipleParamsInjected
@@ -51,14 +48,26 @@ class Convertible implements Car {
     private Provider<Tire> constructorPlainTireProvider = nullProvider()
     private Provider<Tire> constructorSpareTireProvider = nullProvider()
 
-    @Inject protected Seat fieldPlainSeat
-    @Inject @Drivers protected Seat fieldDriversSeat
-    @Inject protected  Tire fieldPlainTire
-    @Inject @Named("spare") protected  Tire fieldSpareTire
-    @Inject protected Provider<Seat> fieldPlainSeatProvider = nullProvider()
-    @Inject @Drivers protected  Provider<Seat> fieldDriversSeatProvider = nullProvider()
-    @Inject protected Provider<Tire> fieldPlainTireProvider = nullProvider()
-    @Inject @Named("spare") protected  Provider<Tire> fieldSpareTireProvider = nullProvider()
+    @Inject
+    Seat fieldPlainSeat
+    @Inject
+    @org.atinject.jakartatck.auto.Drivers
+    Seat fieldDriversSeat
+    @Inject
+    Tire fieldPlainTire
+    @Inject
+    @Named('spare')
+    Tire fieldSpareTire
+    @Inject
+    Provider<Seat> fieldPlainSeatProvider = nullProvider()
+    @Inject
+    @org.atinject.jakartatck.auto.Drivers
+    Provider<Seat> fieldDriversSeatProvider = nullProvider()
+    @Inject
+    Provider<Tire> fieldPlainTireProvider = nullProvider()
+    @Inject
+    @Named('spare')
+    Provider<Tire> fieldSpareTireProvider = nullProvider()
 
     private Seat methodPlainSeat
     private Seat methodDriversSeat
@@ -69,14 +78,26 @@ class Convertible implements Car {
     private Provider<Tire> methodPlainTireProvider = nullProvider()
     private Provider<Tire> methodSpareTireProvider = nullProvider()
 
-    @Inject @PackageScope static Seat staticFieldPlainSeat
-    @Inject @PackageScope @Drivers static Seat staticFieldDriversSeat
-    @Inject @PackageScope static Tire staticFieldPlainTire
-    @Inject @PackageScope @Named("spare") static Tire staticFieldSpareTire
-    @Inject @PackageScope static Provider<Seat> staticFieldPlainSeatProvider = nullProvider()
-    @Inject @PackageScope @Drivers static Provider<Seat> staticFieldDriversSeatProvider = nullProvider()
-    @Inject @PackageScope static Provider<Tire> staticFieldPlainTireProvider = nullProvider()
-    @Inject @PackageScope @Named("spare") static Provider<Tire> staticFieldSpareTireProvider = nullProvider()
+    @Inject
+    static Seat staticFieldPlainSeat
+    @Inject
+    @org.atinject.jakartatck.auto.Drivers
+    static Seat staticFieldDriversSeat
+    @Inject
+    static Tire staticFieldPlainTire
+    @Inject
+    @Named('spare')
+    static Tire staticFieldSpareTire
+    @Inject
+    static Provider<Seat> staticFieldPlainSeatProvider = nullProvider()
+    @Inject
+    @org.atinject.jakartatck.auto.Drivers
+    static Provider<Seat> staticFieldDriversSeatProvider = nullProvider()
+    @Inject
+    static Provider<Tire> staticFieldPlainTireProvider = nullProvider()
+    @Inject
+    @Named('spare')
+    static Provider<Tire> staticFieldSpareTireProvider = nullProvider()
 
     private static Seat staticMethodPlainSeat
     private static Seat staticMethodDriversSeat
@@ -87,15 +108,16 @@ class Convertible implements Car {
     private static Provider<Tire> staticMethodPlainTireProvider = nullProvider()
     private static Provider<Tire> staticMethodSpareTireProvider = nullProvider()
 
-    @Inject @PackageScope Convertible(
+    @Inject
+    Convertible(
             Seat plainSeat,
-            @Drivers Seat driversSeat,
+            @org.atinject.jakartatck.auto.Drivers Seat driversSeat,
             Tire plainTire,
-            @Named("spare") Tire spareTire,
+            @Named('spare') Tire spareTire,
             Provider<Seat> plainSeatProvider,
-            @Drivers Provider<Seat> driversSeatProvider,
+            @org.atinject.jakartatck.auto.Drivers Provider<Seat> driversSeatProvider,
             Provider<Tire> plainTireProvider,
-            @Named("spare") Provider<Tire> spareTireProvider) {
+            @Named('spare') Provider<Tire> spareTireProvider) {
         constructorPlainSeat = plainSeat
         constructorDriversSeat = driversSeat
         constructorPlainTire = plainTire
@@ -106,32 +128,35 @@ class Convertible implements Car {
         constructorSpareTireProvider = spareTireProvider
     }
 
-    @PackageScope Convertible() {
-        throw new AssertionError("Unexpected call to non-injectable constructor")
+    Convertible() {
+        throw new AssertionError('Unexpected call to non-injectable constructor')
     }
 
-    @PackageScope void setSeat(Seat unused) {
-        throw new AssertionError("Unexpected call to non-injectable method")
+    void setSeat(Seat unused) {
+        throw new AssertionError('Unexpected call to non-injectable method')
     }
 
-    @Inject @PackageScope void injectMethodWithZeroArgs() {
+    @Inject
+    void injectMethodWithZeroArgs() {
         methodWithZeroParamsInjected = true
     }
 
-    @Inject @PackageScope String injectMethodWithNonVoidReturn() {
+    @Inject
+    String injectMethodWithNonVoidReturn() {
         methodWithNonVoidReturnInjected = true
-        return "unused"
+        return 'unused'
     }
 
-    @Inject @PackageScope void injectInstanceMethodWithManyArgs(
+    @Inject
+    void injectInstanceMethodWithManyArgs(
             Seat plainSeat,
-            @Drivers Seat driversSeat,
+            @org.atinject.jakartatck.auto.Drivers Seat driversSeat,
             Tire plainTire,
-            @Named("spare") Tire spareTire,
+            @Named('spare') Tire spareTire,
             Provider<Seat> plainSeatProvider,
-            @Drivers Provider<Seat> driversSeatProvider,
+            @org.atinject.jakartatck.auto.Drivers Provider<Seat> driversSeatProvider,
             Provider<Tire> plainTireProvider,
-            @Named("spare") Provider<Tire> spareTireProvider) {
+            @Named('spare') Provider<Tire> spareTireProvider) {
         methodWithMultipleParamsInjected = true
 
         methodPlainSeat = plainSeat
@@ -144,15 +169,16 @@ class Convertible implements Car {
         methodSpareTireProvider = spareTireProvider
     }
 
-    @Inject @PackageScope static void injectStaticMethodWithManyArgs(
+    @Inject
+    static void injectStaticMethodWithManyArgs(
             Seat plainSeat,
-            @Drivers Seat driversSeat,
+            @org.atinject.jakartatck.auto.Drivers Seat driversSeat,
             Tire plainTire,
-            @Named("spare") Tire spareTire,
+            @Named('spare') Tire spareTire,
             Provider<Seat> plainSeatProvider,
-            @Drivers Provider<Seat> driversSeatProvider,
+            @org.atinject.jakartatck.auto.Drivers Provider<Seat> driversSeatProvider,
             Provider<Tire> plainTireProvider,
-            @Named("spare") Provider<Tire> spareTireProvider) {
+            @Named('spare') Provider<Tire> spareTireProvider) {
         staticMethodPlainSeat = plainSeat
         staticMethodDriversSeat = driversSeat
         staticMethodPlainTire = plainTire
@@ -168,354 +194,407 @@ class Convertible implements Car {
      * value to avoid null checks for omitted provider injections.
      */
     private static <T> Provider<T> nullProvider() {
-        return new NullProvider<T>()
+        return () -> null
     }
 
-    static class NullProvider<T> implements Provider<T> {
+    public static ThreadLocal<Convertible> localConvertible
+            = new ThreadLocal<>()
 
-        @Override
-        T get() {
-            return null
-        }
-    }
+    static class Tests extends TestCase {
 
-    public static ThreadLocal<Convertible> localConvertible = new ThreadLocal<Convertible>()
-
-    static class Tests extends Specification {
-
-        private final ApplicationContext context = ApplicationContext.run()
-        private final Convertible car = context.getBean(Convertible)
-        private final Cupholder cupholder = car.cupholder
-        private final SpareTire spareTire = car.spareTire
+        private final Convertible car = localConvertible.get()
+        private final org.atinject.jakartatck.auto.accessories.Cupholder cupholder = car.cupholder
+        private final org.atinject.jakartatck.auto.accessories.SpareTire spareTire = car.spareTire
         private final Tire plainTire = car.fieldPlainTire
         private final Engine engine = car.engineProvider.get()
 
         // smoke tests: if these fail all bets are off
 
         void testFieldsInjected() {
-            expect:
-            cupholder != null && spareTire != null
+            assertTrue(cupholder != null && spareTire != null)
         }
 
         void testProviderReturnedValues() {
-            expect:
-            engine != null
+            assertTrue(engine != null)
         }
 
         // injecting different kinds of members
 
         void testMethodWithZeroParametersInjected() {
-            expect:
-            car.methodWithZeroParamsInjected
+            assertTrue(car.methodWithZeroParamsInjected)
         }
 
         void testMethodWithMultipleParametersInjected() {
-            expect:
-            car.methodWithMultipleParamsInjected
+            assertTrue(car.methodWithMultipleParamsInjected)
         }
 
         void testNonVoidMethodInjected() {
-            expect:
-            car.methodWithNonVoidReturnInjected
+            assertTrue(car.methodWithNonVoidReturnInjected)
         }
 
         void testPublicNoArgsConstructorInjected() {
-            expect:
-            engine.publicNoArgsConstructorInjected
+            assertTrue(engine.publicNoArgsConstructorInjected)
         }
 
         void testSubtypeFieldsInjected() {
-            expect:
-            spareTire.hasSpareTireBeenFieldInjected()
+            assertTrue(spareTire.hasSpareTireBeenFieldInjected())
         }
 
         void testSubtypeMethodsInjected() {
-            expect:
-            spareTire.hasSpareTireBeenMethodInjected()
+            assertTrue(spareTire.hasSpareTireBeenMethodInjected())
         }
 
         void testSupertypeFieldsInjected() {
-            expect:
-            spareTire.hasTireBeenFieldInjected()
+            assertTrue(spareTire.hasTireBeenFieldInjected())
         }
 
         void testSupertypeMethodsInjected() {
-            expect:
-            spareTire.hasTireBeenMethodInjected()
+            assertTrue(spareTire.hasTireBeenMethodInjected())
         }
 
         void testTwiceOverriddenMethodInjectedWhenMiddleLacksAnnotation() {
-            expect:
-            engine.overriddenTwiceWithOmissionInMiddleInjected
+            assertTrue(engine.overriddenTwiceWithOmissionInMiddleInjected)
         }
 
         // injected values
 
-        @PendingFeature
         void testQualifiersNotInheritedFromOverriddenMethod() {
-            expect:
-            engine.overriddenMethodInjected
-            !engine.qualifiersInheritedFromOverriddenMethod
+            assertFalse(engine.qualifiersInheritedFromOverriddenMethod)
         }
 
         void testConstructorInjectionWithValues() {
-            expect:
-            !(car.constructorPlainSeat instanceof DriversSeat)
-            !(car.constructorPlainTire instanceof SpareTire)
-            car.constructorDriversSeat instanceof DriversSeat
-            car.constructorSpareTire instanceof SpareTire
+            assertFalse('Expected unqualified value',
+                    car.constructorPlainSeat instanceof DriversSeat)
+            assertFalse('Expected unqualified value',
+                    car.constructorPlainTire instanceof org.atinject.jakartatck.auto.accessories.SpareTire)
+            assertTrue('Expected qualified value',
+                    car.constructorDriversSeat instanceof DriversSeat)
+            assertTrue('Expected qualified value',
+                    car.constructorSpareTire instanceof org.atinject.jakartatck.auto.accessories.SpareTire)
         }
 
         void testFieldInjectionWithValues() {
-            expect:
-            !(car.fieldPlainSeat instanceof DriversSeat)
-            !(car.fieldPlainTire instanceof SpareTire)
-            car.fieldDriversSeat instanceof DriversSeat
-            car.fieldSpareTire instanceof SpareTire
+            assertFalse('Expected unqualified value',
+                    car.fieldPlainSeat instanceof DriversSeat)
+            assertFalse('Expected unqualified value',
+                    car.fieldPlainTire instanceof org.atinject.jakartatck.auto.accessories.SpareTire)
+            assertTrue('Expected qualified value',
+                    car.fieldDriversSeat instanceof DriversSeat)
+            assertTrue('Expected qualified value',
+                    car.fieldSpareTire instanceof org.atinject.jakartatck.auto.accessories.SpareTire)
         }
 
         void testMethodInjectionWithValues() {
-            expect:
-            !(car.methodPlainSeat instanceof DriversSeat)
-            !(car.methodPlainTire instanceof SpareTire)
-            car.methodDriversSeat instanceof DriversSeat
-            car.methodSpareTire instanceof SpareTire
+            assertFalse('Expected unqualified value',
+                    car.methodPlainSeat instanceof DriversSeat)
+            assertFalse('Expected unqualified value',
+                    car.methodPlainTire instanceof org.atinject.jakartatck.auto.accessories.SpareTire)
+            assertTrue('Expected qualified value',
+                    car.methodDriversSeat instanceof DriversSeat)
+            assertTrue('Expected qualified value',
+                    car.methodSpareTire instanceof org.atinject.jakartatck.auto.accessories.SpareTire)
         }
 
         // injected providers
 
         void testConstructorInjectionWithProviders() {
-            expect:
-            !(car.constructorPlainSeatProvider.get() instanceof DriversSeat)
-            !(car.constructorPlainTireProvider.get() instanceof SpareTire)
-            car.constructorDriversSeatProvider.get() instanceof DriversSeat
-            car.constructorSpareTireProvider.get() instanceof SpareTire
+            assertFalse('Expected unqualified value',
+                    car.constructorPlainSeatProvider.get() instanceof DriversSeat)
+            assertFalse('Expected unqualified value',
+                    car.constructorPlainTireProvider.get() instanceof org.atinject.jakartatck.auto.accessories.SpareTire)
+            assertTrue('Expected qualified value',
+                    car.constructorDriversSeatProvider.get() instanceof DriversSeat)
+            assertTrue('Expected qualified value',
+                    car.constructorSpareTireProvider.get() instanceof org.atinject.jakartatck.auto.accessories.SpareTire)
         }
 
         void testFieldInjectionWithProviders() {
-            expect:
-            !(car.fieldPlainSeatProvider.get() instanceof DriversSeat)
-            !(car.fieldPlainTireProvider.get() instanceof SpareTire)
-            car.fieldDriversSeatProvider.get() instanceof DriversSeat
-            car.fieldSpareTireProvider.get() instanceof SpareTire
+            assertFalse('Expected unqualified value',
+                    car.fieldPlainSeatProvider.get() instanceof DriversSeat)
+            assertFalse('Expected unqualified value',
+                    car.fieldPlainTireProvider.get() instanceof org.atinject.jakartatck.auto.accessories.SpareTire)
+            assertTrue('Expected qualified value',
+                    car.fieldDriversSeatProvider.get() instanceof DriversSeat)
+            assertTrue('Expected qualified value',
+                    car.fieldSpareTireProvider.get() instanceof org.atinject.jakartatck.auto.accessories.SpareTire)
         }
 
         void testMethodInjectionWithProviders() {
-            expect:
-            !(car.methodPlainSeatProvider.get() instanceof DriversSeat)
-            !(car.methodPlainTireProvider.get() instanceof SpareTire)
-            car.methodDriversSeatProvider.get() instanceof DriversSeat
-            car.methodSpareTireProvider.get() instanceof SpareTire
+            assertFalse('Expected unqualified value',
+                    car.methodPlainSeatProvider.get() instanceof DriversSeat)
+            assertFalse('Expected unqualified value',
+                    car.methodPlainTireProvider.get() instanceof org.atinject.jakartatck.auto.accessories.SpareTire)
+            assertTrue('Expected qualified value',
+                    car.methodDriversSeatProvider.get() instanceof DriversSeat)
+            assertTrue('Expected qualified value',
+                    car.methodSpareTireProvider.get() instanceof org.atinject.jakartatck.auto.accessories.SpareTire)
         }
 
 
         // singletons
 
         void testConstructorInjectedProviderYieldsSingleton() {
-            expect:
-            car.constructorPlainSeatProvider.get().is(car.constructorPlainSeatProvider.get())
+            assertSame('Expected same value',
+                    car.constructorPlainSeatProvider.get(), car.constructorPlainSeatProvider.get())
         }
 
         void testFieldInjectedProviderYieldsSingleton() {
-            expect:
-            car.fieldPlainSeatProvider.get().is(car.fieldPlainSeatProvider.get())
+            assertSame('Expected same value',
+                    car.fieldPlainSeatProvider.get(), car.fieldPlainSeatProvider.get())
         }
 
         void testMethodInjectedProviderYieldsSingleton() {
-            expect:
-            car.methodPlainSeatProvider.get().is(car.methodPlainSeatProvider.get())
+            assertSame('Expected same value',
+                    car.methodPlainSeatProvider.get(), car.methodPlainSeatProvider.get())
         }
 
         void testCircularlyDependentSingletons() {
             // uses provider.get() to get around circular deps
-            expect:
-            cupholder.seatProvider.get().getCupholder().is(cupholder)
+            assertSame(cupholder.seatProvider.get().cupholder, cupholder)
         }
 
 
         // non singletons
 
         void testSingletonAnnotationNotInheritedFromSupertype() {
-            expect:
-            !car.driversSeatA.is(car.driversSeatB)
+            assertNotSame(car.driversSeatA, car.driversSeatB)
         }
 
         void testConstructorInjectedProviderYieldsDistinctValues() {
-            expect:
-            !car.constructorDriversSeatProvider.get().is(car.constructorDriversSeatProvider.get())
-            !car.constructorPlainTireProvider.get().is(car.constructorPlainTireProvider.get())
-            !car.constructorSpareTireProvider.get().is(car.constructorSpareTireProvider.get())
+            assertNotSame('Expected distinct values',
+                    car.constructorDriversSeatProvider.get(), car.constructorDriversSeatProvider.get())
+            assertNotSame('Expected distinct values',
+                    car.constructorPlainTireProvider.get(), car.constructorPlainTireProvider.get())
+            assertNotSame('Expected distinct values',
+                    car.constructorSpareTireProvider.get(), car.constructorSpareTireProvider.get())
         }
 
         void testFieldInjectedProviderYieldsDistinctValues() {
-            expect:
-            !car.fieldDriversSeatProvider.get().is(car.fieldDriversSeatProvider.get())
-            !car.fieldPlainTireProvider.get().is(car.fieldPlainTireProvider.get())
-            !car.fieldSpareTireProvider.get().is(car.fieldSpareTireProvider.get())
+            assertNotSame('Expected distinct values',
+                    car.fieldDriversSeatProvider.get(), car.fieldDriversSeatProvider.get())
+            assertNotSame('Expected distinct values',
+                    car.fieldPlainTireProvider.get(), car.fieldPlainTireProvider.get())
+            assertNotSame('Expected distinct values',
+                    car.fieldSpareTireProvider.get(), car.fieldSpareTireProvider.get())
         }
 
         void testMethodInjectedProviderYieldsDistinctValues() {
-            expect:
-            !car.methodDriversSeatProvider.get().is(car.methodDriversSeatProvider.get())
-            !car.methodPlainTireProvider.get().is(car.methodPlainTireProvider.get())
-            !car.methodSpareTireProvider.get().is(car.methodSpareTireProvider.get())
+            assertNotSame('Expected distinct values',
+                    car.methodDriversSeatProvider.get(), car.methodDriversSeatProvider.get())
+            assertNotSame('Expected distinct values',
+                    car.methodPlainTireProvider.get(), car.methodPlainTireProvider.get())
+            assertNotSame('Expected distinct values',
+                    car.methodSpareTireProvider.get(), car.methodSpareTireProvider.get())
         }
 
 
         // mix inheritance + visibility
 
         void testPackagePrivateMethodInjectedDifferentPackages() {
-            expect:
-            spareTire.subPackagePrivateMethodInjected
-            spareTire.superPackagePrivateMethodInjected
+            assertTrue(spareTire.subPackagePrivateMethodInjected)
+            assertTrue(spareTire.superPackagePrivateMethodInjected)
         }
 
         void testOverriddenProtectedMethodInjection() {
-            expect:
-            spareTire.subProtectedMethodInjected
-            !spareTire.superProtectedMethodInjected
+            assertTrue(spareTire.subProtectedMethodInjected)
+            assertFalse(spareTire.superProtectedMethodInjected)
         }
 
         void testOverriddenPublicMethodNotInjected() {
-            expect:
-            spareTire.subPublicMethodInjected
-            !spareTire.superPublicMethodInjected
+            assertTrue(spareTire.subPublicMethodInjected)
+            assertFalse(spareTire.superPublicMethodInjected)
         }
 
 
         // inject in order
 
         void testFieldsInjectedBeforeMethods() {
-            expect:
-            !spareTire.methodInjectedBeforeFields
+            assertFalse(spareTire.methodInjectedBeforeFields)
         }
 
         void testSupertypeMethodsInjectedBeforeSubtypeFields() {
-            expect:
-            !spareTire.subtypeFieldInjectedBeforeSupertypeMethods
+            assertFalse(spareTire.subtypeFieldInjectedBeforeSupertypeMethods)
         }
 
         void testSupertypeMethodInjectedBeforeSubtypeMethods() {
-            expect:
-            !spareTire.subtypeMethodInjectedBeforeSupertypeMethods
+            assertFalse(spareTire.subtypeMethodInjectedBeforeSupertypeMethods)
         }
 
 
         // necessary injections occur
 
         void testPackagePrivateMethodInjectedEvenWhenSimilarMethodLacksAnnotation() {
-            expect:
-            spareTire.subPackagePrivateMethodForOverrideInjected
+            assertTrue(spareTire.subPackagePrivateMethodForOverrideInjected)
         }
 
 
         // override or similar method without @Inject
 
         void testPrivateMethodNotInjectedWhenSupertypeHasAnnotatedSimilarMethod() {
-            expect:
-            !spareTire.superPrivateMethodForOverrideInjected
+            assertFalse(spareTire.superPrivateMethodForOverrideInjected)
         }
 
         void testPackagePrivateMethodNotInjectedWhenOverrideLacksAnnotation() {
-            expect:
-            !engine.subPackagePrivateMethodForOverrideInjected
-            !engine.superPackagePrivateMethodForOverrideInjected
+            assertFalse(engine.subPackagePrivateMethodForOverrideInjected)
+            assertFalse(engine.superPackagePrivateMethodForOverrideInjected)
         }
 
         void testPackagePrivateMethodNotInjectedWhenSupertypeHasAnnotatedSimilarMethod() {
-            expect:
-            !spareTire.superPackagePrivateMethodForOverrideInjected
+            assertFalse(spareTire.superPackagePrivateMethodForOverrideInjected)
         }
 
         void testProtectedMethodNotInjectedWhenOverrideNotAnnotated() {
-            expect:
-            !spareTire.protectedMethodForOverrideInjected
+            assertFalse(spareTire.protectedMethodForOverrideInjected)
         }
 
         void testPublicMethodNotInjectedWhenOverrideNotAnnotated() {
-            expect:
-            !spareTire.publicMethodForOverrideInjected
+            assertFalse(spareTire.publicMethodForOverrideInjected)
         }
 
         void testTwiceOverriddenMethodNotInjectedWhenOverrideLacksAnnotation() {
-            expect:
-            !engine.overriddenTwiceWithOmissionInSubclassInjected
+            assertFalse(engine.overriddenTwiceWithOmissionInSubclassInjected)
         }
 
         void testOverriddingMixedWithPackagePrivate2() {
-            expect:
-            spareTire.spareTirePackagePrivateMethod2Injected
-            ((Tire) spareTire).tirePackagePrivateMethod2Injected
-            !((RoundThing) spareTire).roundThingPackagePrivateMethod2Injected
-            plainTire.tirePackagePrivateMethod2Injected
-            ((RoundThing) plainTire).roundThingPackagePrivateMethod2Injected
+            assertTrue(spareTire.packagePrivateMethod2Injected)
+            assertTrue(((Tire) spareTire).packagePrivateMethod2Injected)
+            assertFalse(((org.atinject.jakartatck.auto.accessories.RoundThing) spareTire).packagePrivateMethod2Injected)
+
+            assertTrue(plainTire.packagePrivateMethod2Injected)
+            assertTrue(((org.atinject.jakartatck.auto.accessories.RoundThing) plainTire).packagePrivateMethod2Injected)
         }
 
         void testOverriddingMixedWithPackagePrivate3() {
-            expect:
-            !spareTire.spareTirePackagePrivateMethod3Injected
-            ((Tire) spareTire).tirePackagePrivateMethod3Injected
-            !((RoundThing) spareTire).roundThingPackagePrivateMethod3Injected
-            plainTire.tirePackagePrivateMethod3Injected
-            ((RoundThing) plainTire).roundThingPackagePrivateMethod3Injected
+            assertFalse(spareTire.packagePrivateMethod3Injected)
+            assertTrue(((Tire) spareTire).packagePrivateMethod3Injected)
+            assertFalse(((org.atinject.jakartatck.auto.accessories.RoundThing) spareTire).packagePrivateMethod3Injected)
+
+            assertTrue(plainTire.packagePrivateMethod3Injected)
+            assertTrue(((org.atinject.jakartatck.auto.accessories.RoundThing) plainTire).packagePrivateMethod3Injected)
         }
 
         void testOverriddingMixedWithPackagePrivate4() {
-            expect:
-            !plainTire.tirePackagePrivateMethod4Injected
-            ((RoundThing) plainTire).roundThingPackagePrivateMethod4Injected
+            assertFalse(plainTire.packagePrivateMethod4Injected)
+            assertTrue(((org.atinject.jakartatck.auto.accessories.RoundThing) plainTire).packagePrivateMethod4Injected)
         }
 
         // inject only once
 
         void testOverriddenPackagePrivateMethodInjectedOnlyOnce() {
-            expect:
-            !engine.@overriddenPackagePrivateMethodInjectedTwice
+            assertFalse(engine.overriddenPackagePrivateMethodInjectedTwice)
         }
 
         void testSimilarPackagePrivateMethodInjectedOnlyOnce() {
-            expect:
-            !spareTire.@similarPackagePrivateMethodInjectedTwice
+            assertFalse(spareTire.similarPackagePrivateMethodInjectedTwice)
         }
 
         void testOverriddenProtectedMethodInjectedOnlyOnce() {
-            expect:
-            !spareTire.@overriddenProtectedMethodInjectedTwice
+            assertFalse(spareTire.overriddenProtectedMethodInjectedTwice)
         }
 
         void testOverriddenPublicMethodInjectedOnlyOnce() {
-            expect:
-            !spareTire.@overriddenPublicMethodInjectedTwice
+            assertFalse(spareTire.overriddenPublicMethodInjectedTwice)
         }
 
     }
 
-    static class PrivateTests extends Specification {
-        private final ApplicationContext context = ApplicationContext.run()
-        private final Convertible car = context.getBean(Convertible)
+    static class StaticTests extends TestCase {
+
+        void testSubtypeStaticFieldsInjected() {
+            assertTrue(org.atinject.jakartatck.auto.accessories.SpareTire.hasBeenStaticFieldInjected())
+        }
+
+        void testSubtypeStaticMethodsInjected() {
+            assertTrue(org.atinject.jakartatck.auto.accessories.SpareTire.hasBeenStaticMethodInjected())
+        }
+
+        void testSupertypeStaticFieldsInjected() {
+            assertTrue(Tire.hasBeenStaticFieldInjected())
+        }
+
+        void testSupertypeStaticMethodsInjected() {
+            assertTrue(Tire.hasBeenStaticMethodInjected())
+        }
+
+        void testStaticFieldInjectionWithValues() {
+            assertFalse('Expected unqualified value',
+                    staticFieldPlainSeat instanceof DriversSeat)
+            assertFalse('Expected unqualified value',
+                    staticFieldPlainTire instanceof org.atinject.jakartatck.auto.accessories.SpareTire)
+            assertTrue('Expected qualified value',
+                    staticFieldDriversSeat instanceof DriversSeat)
+            assertTrue('Expected qualified value',
+                    staticFieldSpareTire instanceof org.atinject.jakartatck.auto.accessories.SpareTire)
+        }
+
+        void testStaticMethodInjectionWithValues() {
+            assertFalse('Expected unqualified value',
+                    staticMethodPlainSeat instanceof DriversSeat)
+            assertFalse('Expected unqualified value',
+                    staticMethodPlainTire instanceof org.atinject.jakartatck.auto.accessories.SpareTire)
+            assertTrue('Expected qualified value',
+                    staticMethodDriversSeat instanceof DriversSeat)
+            assertTrue('Expected qualified value',
+                    staticMethodSpareTire instanceof org.atinject.jakartatck.auto.accessories.SpareTire)
+        }
+
+        void testStaticFieldsInjectedBeforeMethods() {
+            assertFalse(org.atinject.jakartatck.auto.accessories.SpareTire.staticMethodInjectedBeforeStaticFields)
+        }
+
+        void testSupertypeStaticMethodsInjectedBeforeSubtypeStaticFields() {
+            assertFalse(org.atinject.jakartatck.auto.accessories.SpareTire.subtypeStaticFieldInjectedBeforeSupertypeStaticMethods)
+        }
+
+        void testSupertypeStaticMethodsInjectedBeforeSubtypeStaticMethods() {
+            assertFalse(org.atinject.jakartatck.auto.accessories.SpareTire.subtypeStaticMethodInjectedBeforeSupertypeStaticMethods)
+        }
+
+        void testStaticFieldInjectionWithProviders() {
+            assertFalse('Expected unqualified value',
+                    staticFieldPlainSeatProvider.get() instanceof DriversSeat)
+            assertFalse('Expected unqualified value',
+                    staticFieldPlainTireProvider.get() instanceof org.atinject.jakartatck.auto.accessories.SpareTire)
+            assertTrue('Expected qualified value',
+                    staticFieldDriversSeatProvider.get() instanceof DriversSeat)
+            assertTrue('Expected qualified value',
+                    staticFieldSpareTireProvider.get() instanceof org.atinject.jakartatck.auto.accessories.SpareTire)
+        }
+
+        void testStaticMethodInjectionWithProviders() {
+            assertFalse('Expected unqualified value',
+                    staticMethodPlainSeatProvider.get() instanceof DriversSeat)
+            assertFalse('Expected unqualified value',
+                    staticMethodPlainTireProvider.get() instanceof org.atinject.jakartatck.auto.accessories.SpareTire)
+            assertTrue('Expected qualified value',
+                    staticMethodDriversSeatProvider.get() instanceof DriversSeat)
+            assertTrue('Expected qualified value',
+                    staticMethodSpareTireProvider.get() instanceof org.atinject.jakartatck.auto.accessories.SpareTire)
+        }
+    }
+
+    static class PrivateTests extends TestCase {
+
+        private final Convertible car = localConvertible.get()
         private final Engine engine = car.engineProvider.get()
-        private final SpareTire spareTire = car.spareTire
+        private final org.atinject.jakartatck.auto.accessories.SpareTire spareTire = car.spareTire
 
         void testSupertypePrivateMethodInjected() {
-            expect:
-            spareTire.superPrivateMethodInjected
-            spareTire.subPrivateMethodInjected
+            assertTrue(spareTire.superPrivateMethodInjected)
+            assertTrue(spareTire.subPrivateMethodInjected)
         }
 
         void testPackagePrivateMethodInjectedSamePackage() {
-            expect:
-            engine.subPackagePrivateMethodInjected
-            !engine.superPackagePrivateMethodInjected
+            assertTrue(engine.subPackagePrivateMethodInjected)
+            assertFalse(engine.superPackagePrivateMethodInjected)
         }
 
         void testPrivateMethodInjectedEvenWhenSimilarMethodLacksAnnotation() {
-            expect:
-            spareTire.subPrivateMethodForOverrideInjected
+            assertTrue(spareTire.subPrivateMethodForOverrideInjected)
         }
 
         void testSimilarPrivateMethodInjectedOnlyOnce() {
-            expect:
-            !spareTire.similarPrivateMethodInjectedTwice
+            assertFalse(spareTire.similarPrivateMethodInjectedTwice)
         }
     }
 }

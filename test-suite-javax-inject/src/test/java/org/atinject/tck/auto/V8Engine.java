@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 original authors
+ * Copyright 2017-2024 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.atinject.javaxtck.auto;
+package org.atinject.tck.auto;
 
-import org.atinject.javaxtck.auto.accessories.SpareTire;
-
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import org.atinject.tck.auto.accessories.SpareTire;
 
 public class V8Engine extends GasEngine {
 
@@ -27,7 +26,8 @@ public class V8Engine extends GasEngine {
     }
 
     @Override
-    @Inject void injectPackagePrivateMethod() {
+    @Inject
+    void injectPackagePrivateMethod() {
         if (subPackagePrivateMethodInjected) {
             overriddenPackagePrivateMethodInjectedTwice = true;
         }
@@ -40,7 +40,6 @@ public class V8Engine extends GasEngine {
     @Override
     public void injectQualifiers(Seat seatA, @Drivers Seat seatB,
                                  Tire tireA, @Named("spare") Tire tireB) {
-        overriddenMethodInjected = true;
         if ((seatA instanceof DriversSeat)
                 || !(seatB instanceof DriversSeat)
                 || (tireA instanceof SpareTire)
@@ -55,7 +54,8 @@ public class V8Engine extends GasEngine {
     }
 
     @Override
-    @Inject public void injectTwiceOverriddenWithOmissionInMiddle() {
+    @Inject
+    public void injectTwiceOverriddenWithOmissionInMiddle() {
         overriddenTwiceWithOmissionInMiddleInjected = true;
     }
 

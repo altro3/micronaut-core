@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 original authors
+ * Copyright 2017-2024 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.atinject.javaxtck.auto.accessories;
+package org.atinject.tck.auto.accessories;
 
-import org.atinject.javaxtck.auto.FuelTank;
-import org.atinject.javaxtck.auto.Tire;
-
-import javax.inject.Inject;
+import jakarta.inject.Inject;
+import org.atinject.tck.auto.FuelTank;
+import org.atinject.tck.auto.Tire;
 
 public class SpareTire extends Tire {
 
@@ -134,5 +133,4 @@ public class SpareTire extends Tire {
     void injectPackagePrivateMethod3() {
         packagePrivateMethod3Injected = true;
     }
-
 }

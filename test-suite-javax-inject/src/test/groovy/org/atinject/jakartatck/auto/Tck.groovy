@@ -1,11 +1,11 @@
 /*
- * Copyright 2017-2020 original authors
+ * Copyright 2017-2024 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,7 +15,6 @@
  */
 package org.atinject.jakartatck.auto
 
-
 import junit.framework.Test
 import junit.framework.TestSuite
 
@@ -23,7 +22,7 @@ import junit.framework.TestSuite
  * Manufactures the compatibility test suite. This TCK relies on
  * <a href="http://junit.org/">JUnit</a>. To integrate the TCK with your
  * injector, create a JUnit test suite class that passes an injected
- * {@link io.micronaut.javax.inject.tck.Car Car} instance to {@link #testsFor testsFor(Car)}:
+ * {@link Car Car} instance to {@link #testsFor testsFor(Car)}:
  *
  * <pre>
  * import junit.framework.Test;
@@ -45,58 +44,58 @@ import junit.framework.TestSuite
  * <p>Configure the injector as follows:
  *
  * <ul>
- *   <li>{@link org.atinject.javaxtck.auto.Car} is implemented by
- *       {@link org.atinject.javaxtck.auto.Convertible Convertible}.
- *   <li>{@link org.atinject.javaxtck.auto.Drivers @Drivers}
- *       {@link org.atinject.javaxtck.auto.Seat Seat} is
- *       implemented by {@link org.atinject.javaxtck.auto.DriversSeat DriversSeat}.
- *   <li>{@link org.atinject.javaxtck.auto.Seat Seat} is
- *       implemented by {@link org.atinject.javaxtck.auto.Seat Seat} itself, and
- *       {@link org.atinject.javaxtck.auto.Tire Tire} by
- *       {@link org.atinject.javaxtck.auto.Tire Tire} itself
+ *   <li>{@link Car} is implemented by
+ * {@link Convertible Convertible}.
+ *   <li>{@link org.atinject.jakartatck.auto.Drivers @Drivers}
+ * {@link org.atinject.jakartatck.auto.Seat Seat} is
+ *       implemented by {@link org.atinject.jakartatck.auto.DriversSeat DriversSeat}.
+ *   <li>{@link org.atinject.jakartatck.auto.Seat Seat} is
+ *       implemented by {@link org.atinject.jakartatck.auto.Seat Seat} itself, and
+ * {@link org.atinject.jakartatck.auto.Tire Tire} by
+ * {@link org.atinject.jakartatck.auto.Tire Tire} itself
  *       (not subclasses).
- *   <li>{@link org.atinject.javaxtck.auto.Engine Engine} is implemented by
- *       {@link org.atinject.javaxtck.auto.V8Engine V8Engine}.
- *   <li>{@link javax.inject.Named @Named("spare")}
- *       {@link org.atinject.javaxtck.auto.Tire Tire} is implemented by
- *       {@link org.atinject.javaxtck.auto.accessories.SpareTire SpareTire}.
+ *   <li>{@link org.atinject.jakartatck.auto.Engine Engine} is implemented by
+ * {@link org.atinject.jakartatck.auto.V8Engine V8Engine}.
+ *   <li>{@link jakarta.inject.Named @Named("spare")}
+ * {@link org.atinject.jakartatck.auto.Tire Tire} is implemented by
+ * {@link org.atinject.jakartatck.auto.accessories.SpareTire SpareTire}.
  *   <li>The following classes may also be injected directly:
- *       {@link org.atinject.javaxtck.auto.accessories.Cupholder Cupholder},
- *       {@link org.atinject.javaxtck.auto.accessories.SpareTire SpareTire}, and
- *       {@link org.atinject.javaxtck.auto.FuelTank FuelTank}.
+ * {@link org.atinject.jakartatck.auto.accessories.Cupholder Cupholder},
+ * {@link org.atinject.jakartatck.auto.accessories.SpareTire SpareTire}, and
+ * {@link org.atinject.jakartatck.auto.FuelTank FuelTank}.
  * </ul>
  *
  * <p>Static and private member injection support is optional, but if your
  * injector supports those features, it must pass the respective tests. If
  * static member injection is supported, the static members of the following
  * types shall also be injected once:
- * {@link org.atinject.javaxtck.auto.Convertible Convertible},
- * {@link org.atinject.javaxtck.auto.Tire Tire}, and
- * {@link org.atinject.javaxtck.auto.accessories.SpareTire SpareTire}.
+ * {@link Convertible Convertible},
+ * {@link org.atinject.jakartatck.auto.Tire Tire}, and
+ * {@link org.atinject.jakartatck.auto.accessories.SpareTire SpareTire}.
  *
  * <p>Use your favorite JUnit tool to run the tests. For example, you can use
  * your IDE or JUnit's command line runner:
  *
  * <pre>
- * java -cp javax.inject-tck.jar:junit.jar:myinjector.jar \
+ * java -cp jakarta.inject-tck.jar:junit.jar:myinjector.jar \
  *     junit.textui.TestRunner MyTck</pre>
  */
 class Tck {
 
-    private Tck() {}
+    private Tck() {
+    }
 
     /**
      * Constructs a JUnit test suite for the given {@link Car} instance.
      *
      * @param car to test
      * @param supportsStatic true if the injector supports static member
-     *  injection
+     *                        injection
      * @param supportsPrivate true if the injector supports private member
-     *  injection
-     *
+     *                        injection
+     * @return the unit Test instance
      * @throws NullPointerException if car is null
-     * @throws ClassCastException if car doesn't extend
-     *  {@link Convertible Convertible}
+     * @throws ClassCastException   if car doesn't extend {@link Convertible Convertible}
      */
     static Test testsFor(Car car, boolean supportsStatic,
                          boolean supportsPrivate) {

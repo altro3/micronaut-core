@@ -1,11 +1,11 @@
 /*
- * Copyright 2017-2020 original authors
+ * Copyright 2017-2024 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,39 +15,28 @@
  */
 package org.atinject.jakartatck.auto.accessories
 
-import groovy.transform.PackageScope
-
 import jakarta.inject.Inject
 
 class RoundThing {
 
-    private boolean roundThingPackagePrivateMethod2Injected
+    public boolean packagePrivateMethod2Injected
 
-    boolean getRoundThingPackagePrivateMethod2Injected() {
-        return roundThingPackagePrivateMethod2Injected
+    @Inject
+    void injectPackagePrivateMethod2() {
+        packagePrivateMethod2Injected = true
     }
 
-    @Inject @PackageScope void injectPackagePrivateMethod2() {
-        roundThingPackagePrivateMethod2Injected = true
+    public boolean packagePrivateMethod3Injected
+
+    @Inject
+    void injectPackagePrivateMethod3() {
+        packagePrivateMethod3Injected = true
     }
 
-    private  boolean roundThingPackagePrivateMethod3Injected
+    public boolean packagePrivateMethod4Injected
 
-    boolean getRoundThingPackagePrivateMethod3Injected() {
-        return roundThingPackagePrivateMethod3Injected
-    }
-
-    @Inject @PackageScope void injectPackagePrivateMethod3() {
-        roundThingPackagePrivateMethod3Injected = true
-    }
-
-    private  boolean roundThingPackagePrivateMethod4Injected
-
-    boolean getRoundThingPackagePrivateMethod4Injected() {
-        return roundThingPackagePrivateMethod4Injected
-    }
-
-    @Inject @PackageScope void injectPackagePrivateMethod4() {
-        roundThingPackagePrivateMethod4Injected = true
+    @Inject
+    void injectPackagePrivateMethod4() {
+        packagePrivateMethod4Injected = true
     }
 }

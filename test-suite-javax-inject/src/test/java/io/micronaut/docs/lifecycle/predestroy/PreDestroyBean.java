@@ -19,7 +19,7 @@ package io.micronaut.docs.lifecycle.predestroy;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import javax.annotation.PreDestroy;
+import jakarta.annotation.PreDestroy;
 import jakarta.inject.Singleton;
 
 @Singleton

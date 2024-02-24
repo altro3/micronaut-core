@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 original authors
+ * Copyright 2017-2024 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.atinject.javaxtck.auto;
+package org.atinject.tck.auto;
 
-import org.atinject.javaxtck.auto.accessories.SpareTire;
-
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import org.atinject.tck.auto.accessories.SpareTire;
 
 public abstract class Engine {
 
@@ -38,20 +37,20 @@ public abstract class Engine {
 
     public boolean overriddenPackagePrivateMethodInjectedTwice;
     public boolean qualifiersInheritedFromOverriddenMethod;
-    public boolean overriddenMethodInjected;
 
-    @Inject void injectPackagePrivateMethod() {
+    @Inject
+    void injectPackagePrivateMethod() {
         superPackagePrivateMethodInjected = true;
     }
 
-    @Inject void injectPackagePrivateMethodForOverride() {
+    @Inject
+    void injectPackagePrivateMethodForOverride() {
         superPackagePrivateMethodForOverrideInjected = true;
     }
 
     @Inject
     public void injectQualifiers(@Drivers Seat seatA, Seat seatB,
-            @Named("spare") Tire tireA, Tire tireB) {
-        overriddenMethodInjected = true;
+                                 @Named("spare") Tire tireA, Tire tireB) {
         if (!(seatA instanceof DriversSeat)
                 || (seatB instanceof DriversSeat)
                 || !(tireA instanceof SpareTire)

@@ -1,11 +1,11 @@
 /*
- * Copyright 2017-2020 original authors
+ * Copyright 2017-2024 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,9 +14,6 @@
  * limitations under the License.
  */
 package org.atinject.jakartatck.auto
-
-import groovy.transform.PackageScope
-import org.atinject.jakartatck.auto.accessories.SpareTire
 
 import jakarta.inject.Inject
 import jakarta.inject.Named
@@ -34,29 +31,29 @@ abstract class Engine {
 
     protected Seat seatA
     protected Seat seatB
-    protected Tire tireA
-    protected Tire tireB
+    protected org.atinject.jakartatck.auto.Tire tireA
+    protected org.atinject.jakartatck.auto.Tire tireB
 
     public boolean overriddenPackagePrivateMethodInjectedTwice
     public boolean qualifiersInheritedFromOverriddenMethod
-    public boolean overriddenMethodInjected
 
-    @PackageScope @Inject void injectPackagePrivateMethod() {
+    @Inject
+    void injectPackagePrivateMethod() {
         superPackagePrivateMethodInjected = true
     }
 
-    @PackageScope @Inject void injectPackagePrivateMethodForOverride() {
+    @Inject
+    void injectPackagePrivateMethodForOverride() {
         superPackagePrivateMethodForOverrideInjected = true
     }
 
     @Inject
-    void injectQualifiers(@Drivers Seat seatA, Seat seatB,
-                          @Named("spare") Tire tireA, Tire tireB) {
-        overriddenMethodInjected = true
-        if (!(seatA instanceof DriversSeat)
-                || (seatB instanceof DriversSeat)
-                || !(tireA instanceof SpareTire)
-                || (tireB instanceof SpareTire)) {
+    void injectQualifiers(@org.atinject.jakartatck.auto.Drivers Seat seatA, Seat seatB,
+                          @Named('spare') org.atinject.jakartatck.auto.Tire tireA, org.atinject.jakartatck.auto.Tire tireB) {
+        if (!(seatA instanceof org.atinject.jakartatck.auto.DriversSeat)
+                || (seatB instanceof org.atinject.jakartatck.auto.DriversSeat)
+                || !(tireA instanceof org.atinject.jakartatck.auto.accessories.SpareTire)
+                || (tireB instanceof org.atinject.jakartatck.auto.accessories.SpareTire)) {
             qualifiersInheritedFromOverriddenMethod = true
         }
     }

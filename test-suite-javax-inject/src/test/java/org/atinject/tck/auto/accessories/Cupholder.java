@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 original authors
+ * Copyright 2017-2024 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.atinject.javaxtck.auto;
+package org.atinject.tck.auto.accessories;
 
-public class Seatbelt {
+import jakarta.inject.Inject;
+import jakarta.inject.Provider;
+import jakarta.inject.Singleton;
+import org.atinject.tck.auto.Seat;
+
+@Singleton
+public class Cupholder {
+
+    public final Provider<Seat> seatProvider;
+
+    @Inject
+    public Cupholder(Provider<Seat> seatProvider) {
+        this.seatProvider = seatProvider;
+    }
 }

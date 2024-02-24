@@ -1,11 +1,11 @@
 /*
- * Copyright 2017-2020 original authors
+ * Copyright 2017-2024 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,27 +15,20 @@
  */
 package org.atinject.jakartatck.auto
 
-import groovy.transform.PackageScope
-import org.atinject.jakartatck.auto.accessories.Cupholder
-
 import jakarta.inject.Inject
 import jakarta.inject.Singleton
 
-/**
- * Created by graemerocher on 12/05/2017.
- */
 @Singleton
 class Seat {
 
-    private final Cupholder cupholder
+    private final org.atinject.jakartatck.auto.accessories.Cupholder cupholder
 
     @Inject
-    @PackageScope
-    Seat(Cupholder cupholder) {
+    Seat(org.atinject.jakartatck.auto.accessories.Cupholder cupholder) {
         this.cupholder = cupholder
     }
 
-    Cupholder getCupholder() {
+    org.atinject.jakartatck.auto.accessories.Cupholder getCupholder() {
         return cupholder
     }
 }
