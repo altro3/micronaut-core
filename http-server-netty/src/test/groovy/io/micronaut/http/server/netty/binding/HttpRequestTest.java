@@ -24,16 +24,21 @@ import io.micronaut.http.server.netty.NettyHttpRequest;
 import io.micronaut.http.server.netty.body.ByteBody;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.DefaultFullHttpRequest;
+import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpVersion;
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
 import spock.mock.DetachedMockFactory;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class HttpRequestTest extends TestCase {
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-    public void testForEach() {
-        final DefaultFullHttpRequest nettyRequest = new DefaultFullHttpRequest(HttpVersion.HTTP_1_1, io.netty.handler.codec.http.HttpMethod.GET, "/test");
+class HttpRequestTest {
+
+    @Test
+    void testForEach() {
+        final DefaultFullHttpRequest nettyRequest = new DefaultFullHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.GET, "/test");
         nettyRequest.headers().add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON);
         HttpRequest<?> request = new NettyHttpRequest(
                 nettyRequest,
@@ -52,9 +57,9 @@ public class HttpRequestTest extends TestCase {
 
     }
 
-
-    public void testForEach2() {
-        final DefaultFullHttpRequest nettyRequest = new DefaultFullHttpRequest(HttpVersion.HTTP_1_1, io.netty.handler.codec.http.HttpMethod.GET, "/test");
+    @Test
+    void testForEach2() {
+        final DefaultFullHttpRequest nettyRequest = new DefaultFullHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.GET, "/test");
         nettyRequest.headers().add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON);
         nettyRequest.headers().add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_XML);
         HttpRequest<?> request = new NettyHttpRequest(

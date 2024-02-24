@@ -18,11 +18,14 @@ package io.micronaut.docs.ioc.beans;
 import io.micronaut.core.beans.BeanIntrospection;
 import io.micronaut.core.beans.BeanProperty;
 import io.micronaut.core.beans.BeanWrapper;
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
 
-public class IntrospectionSpec extends TestCase {
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-    public void testRetrieveInspection() {
+class IntrospectionSpec {
+
+    @Test
+    void testRetrieveInspection() {
 
         // tag::usage[]
         final BeanIntrospection<Person> introspection = BeanIntrospection.getIntrospection(Person.class); // <1>
@@ -38,7 +41,8 @@ public class IntrospectionSpec extends TestCase {
         assertEquals("Fred", name);
     }
 
-    public void testBeanWrapper() {
+    @Test
+    void testBeanWrapper() {
         // tag::wrapper[]
         final BeanWrapper<Person> wrapper = BeanWrapper.getWrapper(new Person("Fred")); // <1>
 
@@ -50,7 +54,8 @@ public class IntrospectionSpec extends TestCase {
         assertEquals(20, newAge);
     }
 
-    public void testNullable() {
+    @Test
+    void testNullable() {
         final BeanIntrospection<Manufacturer> introspection = BeanIntrospection.getIntrospection(Manufacturer.class);
         Manufacturer manufacturer = introspection.instantiate(null, "John");
         assertEquals("John", manufacturer.getName());
@@ -62,7 +67,8 @@ public class IntrospectionSpec extends TestCase {
         assertEquals("Fred", name);
     }
 
-    public void testVehicle() {
+    @Test
+    void testVehicle() {
         final BeanIntrospection<Vehicle> introspection = BeanIntrospection.getIntrospection(Vehicle.class);
         Vehicle vehicle = introspection.instantiate("Subaru", "WRX", 2);
         assertEquals("Subaru", vehicle.getMake());
@@ -70,13 +76,15 @@ public class IntrospectionSpec extends TestCase {
         assertEquals(2, vehicle.getAxles());
     }
 
-    public void testBusiness() {
+    @Test
+    void testBusiness() {
         final BeanIntrospection<Business> introspection = BeanIntrospection.getIntrospection(Business.class);
         Business business = introspection.instantiate("Apple");
         assertEquals("Apple", business.getName());
     }
 
-    public void testUser() {
+    @Test
+    void testUser() {
         final BeanIntrospection<User> introspection = BeanIntrospection.getIntrospection(User.class);
         User user = introspection.instantiate("Apple");
         assertEquals("Apple", user.name);

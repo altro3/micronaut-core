@@ -21,11 +21,16 @@ import io.micronaut.docs.client.versioning.HelloClient;
 import io.micronaut.inject.BeanDefinition;
 import io.micronaut.inject.ExecutableMethod;
 import example.micronaut.inject.visitor.AnnotatingVisitor;
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
 
-public class ElementAnnotateSpec extends TestCase {
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-    public void testThatIntrospectionsCanBeDynamicallyAnnotated() {
+class ElementAnnotateSpec {
+
+    @Test
+    void testThatIntrospectionsCanBeDynamicallyAnnotated() {
         final BeanIntrospection<VersionedIntrospected> introspection = BeanIntrospection.getIntrospection(VersionedIntrospected.class);
 
 
@@ -48,7 +53,8 @@ public class ElementAnnotateSpec extends TestCase {
 //        );
     }
 
-    public void testThatAopAdviceWasAnnotated() {
+    @Test
+    void testThatAopAdviceWasAnnotated() {
         try (ApplicationContext context = ApplicationContext.run()) {
 
             final BeanDefinition<HelloClient> definition = context.getBeanDefinition(HelloClient.class);
