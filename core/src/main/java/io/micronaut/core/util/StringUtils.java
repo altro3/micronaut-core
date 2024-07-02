@@ -59,6 +59,11 @@ public final class StringUtils {
     public static final String EMPTY_STRING = "";
 
     /**
+     * Constant for a wildcard symbol.
+     */
+    public static final String WILDCARD = "*";
+
+    /**
      * a space.
      */
     public static final char SPACE = 0x20;

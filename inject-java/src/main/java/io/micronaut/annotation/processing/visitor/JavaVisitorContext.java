@@ -73,6 +73,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static io.micronaut.core.util.StringUtils.WILDCARD;
+
 /**
  * The visitor context when visiting Java code.
  *
@@ -236,11 +238,15 @@ public final class JavaVisitorContext implements VisitorContext, BeanElementVisi
     ClassElement[] getClassElements(@NonNull String aPackage, @NonNull String... stereotypes) {
         ArgumentUtils.requireNonNull("aPackage", aPackage);
         ArgumentUtils.requireNonNull("stereotypes", stereotypes);
+        var classElements = new ArrayList<ClassElement>();
+        var withSubpackages = false;
+        if (aPackage.endsWith(".*")) {
+            aPackage = aPackage.substring(0, aPackage.length() - 2);
+            withSubpackages = true;
+        }
         final PackageElement packageElement = elements.getPackageElement(aPackage);
         if (packageElement != null) {
-            List<ClassElement> classElements = new ArrayList<>();
-
-            populateClassElements(stereotypes, packageElement, classElements);
+            populateClassElements(stereotypes, withSubpackages, packageElement, classElements);
             return classElements.toArray(ClassElement.ZERO_CLASS_ELEMENTS);
         }
         return ClassElement.ZERO_CLASS_ELEMENTS;
@@ -482,15 +488,29 @@ public final class JavaVisitorContext implements VisitorContext, BeanElementVisi
         return visitorAttributes.get(name, conversionContext);
     }
 
-    private void populateClassElements(@NonNull String[] stereotypes, PackageElement packageElement, List<ClassElement> classElements) {
-        final List<? extends Element> enclosedElements = packageElement.getEnclosedElements();
-        boolean includeAll = Arrays.equals(stereotypes, new String[] { "*" });
-        for (Element enclosedElement : enclosedElements) {
-            populateClassElements(stereotypes, includeAll, packageElement, enclosedElement, classElements);
+    private void populateClassElements(@NonNull String[] stereotypes, boolean withSubpackages, Element packageElement, List<ClassElement> classElements) {
+        boolean includeAll = Arrays.equals(stereotypes, new String[] { WILDCARD });
+        if (withSubpackages) {
+            var packageName = packageElement.getSimpleName().toString();
+            var modulePackages = packageElement.getEnclosingElement().getEnclosedElements();
+            for (var pack : modulePackages) {
+                var modulePackage = pack.getSimpleName().toString();
+                if (modulePackage.startsWith(packageName)) {
+                    final List<? extends Element> enclosedElements = pack.getEnclosedElements();
+                    for (Element enclosedElement : enclosedElements) {
+                        populateClassElements(stereotypes, withSubpackages, includeAll, pack, enclosedElement, classElements);
+                    }
+                }
+            }
+        } else {
+            final List<? extends Element> enclosedElements = packageElement.getEnclosedElements();
+            for (Element enclosedElement : enclosedElements) {
+                populateClassElements(stereotypes, withSubpackages, includeAll, packageElement, enclosedElement, classElements);
+            }
         }
     }
 
-    private void populateClassElements(@NonNull String[] stereotypes, boolean includeAll, PackageElement packageElement, Element enclosedElement, List<ClassElement> classElements) {
+    private void populateClassElements(@NonNull String[] stereotypes, boolean withSubpackages, boolean includeAll, Element packageElement, Element enclosedElement, List<ClassElement> classElements) {
         if (enclosedElement instanceof TypeElement element) {
             JavaClassElement classElement = elementFactory.newClassElement(element, elementAnnotationMetadataFactory);
             if ((includeAll || Arrays.stream(stereotypes).anyMatch(classElement::hasStereotype)) && !classElement.isAbstract()) {
@@ -498,10 +518,10 @@ public final class JavaVisitorContext implements VisitorContext, BeanElementVisi
             }
             List<? extends Element> nestedElements = enclosedElement.getEnclosedElements();
             for (Element nestedElement : nestedElements) {
-                populateClassElements(stereotypes, includeAll, packageElement, nestedElement, classElements);
+                populateClassElements(stereotypes, withSubpackages, includeAll, packageElement, nestedElement, classElements);
             }
         } else if (enclosedElement instanceof PackageElement element) {
-            populateClassElements(stereotypes, element, classElements);
+            populateClassElements(stereotypes, withSubpackages, element, classElements);
         }
     }
 
