@@ -147,6 +147,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static io.micronaut.context.MessageUtils.normalizeBeanClassName;
 import static io.micronaut.core.util.StringUtils.EMPTY_STRING_ARRAY;
 
 /**
@@ -848,7 +849,7 @@ public class DefaultBeanContext implements InitializableBeanContext, Configurabl
                 null,
                 beanType,
                 qualifier,
-                "Bean of type [" + beanType.getTypeString(true) + "] disabled for reason: " + e.getMessage()
+                "Bean of type [" + normalizeBeanClassName(beanType.getTypeString(true)) + "] disabled for reason: " + e.getMessage()
             );
         }
     }
@@ -2840,7 +2841,7 @@ public class DefaultBeanContext implements InitializableBeanContext, Configurabl
                 messageBuilder.append(lineSeparator)
                     .append(linePrefix)
                     .append("* [")
-                    .append(beanType.getTypeString(true))
+                    .append(normalizeBeanClassName(beanType.getTypeString(true)))
                     .append("] is disabled because it is within the package [")
                     .append(pkg)
                     .append("] which is disabled due to bean requirements: ")
@@ -2875,10 +2876,10 @@ public class DefaultBeanContext implements InitializableBeanContext, Configurabl
                 messageBuilder
                     .append(lineSeparator)
                     .append(linePrefix)
-                    .append("* [").append(beanDefinition.asArgument().getTypeString(true));
+                    .append("* [").append(normalizeBeanClassName(beanDefinition.asArgument().getTypeString(true)));
                 if (!beanDefinition.getBeanType().equals(beanType.getType())) {
                     messageBuilder.append("] a candidate of [")
-                        .append(beanType.getTypeString(true));
+                        .append(normalizeBeanClassName(beanType.getTypeString(true)));
                 }
                 messageBuilder.append("] is disabled because:")
                     .append(lineSeparator);

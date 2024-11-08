@@ -65,6 +65,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static io.micronaut.context.MessageUtils.normalizeBeanClassName;
 import static io.micronaut.core.util.StringUtils.EMPTY_STRING_ARRAY;
 
 /**
@@ -367,7 +368,7 @@ public class DefaultApplicationContext extends DefaultBeanContext implements Con
         messageBuilder
             .append(lineSeparator)
             .append(linePrefix)
-            .append("* [").append(beanType.getTypeString(true))
+            .append("* [").append(normalizeBeanClassName(beanType.getTypeString(true)))
             .append("] requires the presence of a bean of type [")
             .append(dependentBean.getName())
             .append("]");
@@ -428,10 +429,10 @@ public class DefaultApplicationContext extends DefaultBeanContext implements Con
             .append(lineSeparator)
             .append(linePrefix)
             .append("* [")
-            .append(definition.asArgument().getTypeString(true));
+            .append(normalizeBeanClassName(definition.asArgument().getTypeString(true)));
         if (!definition.getBeanType().equals(beanType.getType())) {
             messageBuilder.append("] a candidate of [")
-                .append(beanType.getTypeString(true));
+                .append(normalizeBeanClassName(beanType.getTypeString(true)));
         }
         messageBuilder.append("] is disabled because:")
             .append(lineSeparator);
