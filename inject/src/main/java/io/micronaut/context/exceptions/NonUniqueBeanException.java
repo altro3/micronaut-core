@@ -21,8 +21,6 @@ import io.micronaut.inject.BeanDefinition;
 import java.util.Collections;
 import java.util.Iterator;
 
-import static io.micronaut.context.MessageUtils.normalizeBeanClassName;
-
 
 /**
  * Exception thrown when a bean is not unique and has multiple possible implementations for a given bean type.
@@ -72,7 +70,7 @@ public class NonUniqueBeanException extends NoSuchBeanException {
         final StringBuilder message = new StringBuilder("Multiple possible bean candidates found: [");
         while (possibleCandidates.hasNext()) {
             Argument<T> next = possibleCandidates.next().asArgument();
-            message.append(normalizeBeanClassName(next.getTypeString(true)));
+            message.append(next.getTypeString(true));
             if (possibleCandidates.hasNext()) {
                 message.append(", ");
             }

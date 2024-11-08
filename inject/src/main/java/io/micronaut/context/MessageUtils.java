@@ -15,7 +15,9 @@
  */
 package io.micronaut.context;
 
-import io.micronaut.core.util.StringUtils;
+import io.micronaut.core.annotation.NonNull;
+import io.micronaut.inject.BeanDefinition;
+import io.micronaut.inject.ProxyBeanDefinition;
 
 /**
  * Some helper method for log / exception messages.
@@ -24,34 +26,22 @@ import io.micronaut.core.util.StringUtils;
  */
 public final class MessageUtils {
 
-    private static final String POSTFIX_BEAN_DEFINITION_REFERENCE = "$Definition$Intercepted$Definition$Reference";
-    private static final String POSTFIX_BEAN_DEFINITION = "$Definition$Intercepted$Definition";
-    private static final String POSTFIX_BEAN_METHOD_DEFINITION = "$Definition$Intercepted";
-
     private MessageUtils() {
     }
 
     /**
-     * Normalization bean class names for logs.
+     * Return BeanDefinition type string or target type class name for ProxyBeanDefinition.
      *
-     * @param typeString bean class name
+     * @param beanDefinition bean definition
      *
-     * @return normalized bean class name
+     * @return normalized bean definition name
      */
-    public static String normalizeBeanClassName(String typeString) {
-        if (StringUtils.isEmpty(typeString) || !typeString.contains("$")) {
-            return typeString;
+    public static String getNormalizedTypeString(@NonNull BeanDefinition<?> beanDefinition) {
+
+        if (beanDefinition instanceof ProxyBeanDefinition<?> proxyBeanDefinition) {
+            return proxyBeanDefinition.getTargetType().getSimpleName();
+        } else {
+            return beanDefinition.asArgument().getTypeString(true);
         }
-        if (typeString.startsWith("$")) {
-            typeString = typeString.substring(1);
-        }
-        if (typeString.endsWith(POSTFIX_BEAN_DEFINITION_REFERENCE)) {
-            typeString = typeString.substring(0, typeString.indexOf(POSTFIX_BEAN_DEFINITION_REFERENCE));
-        } else if (typeString.endsWith(POSTFIX_BEAN_DEFINITION)) {
-            typeString = typeString.substring(0, typeString.indexOf(POSTFIX_BEAN_DEFINITION));
-        } else if (typeString.endsWith(POSTFIX_BEAN_METHOD_DEFINITION)) {
-            typeString = typeString.substring(0, typeString.indexOf(POSTFIX_BEAN_METHOD_DEFINITION));
-        }
-        return typeString;
     }
 }

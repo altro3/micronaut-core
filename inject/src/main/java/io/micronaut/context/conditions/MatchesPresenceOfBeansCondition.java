@@ -25,8 +25,6 @@ import io.micronaut.core.annotation.UsedByGeneratedCode;
 import java.util.Arrays;
 import java.util.Objects;
 
-import static io.micronaut.context.MessageUtils.normalizeBeanClassName;
-
 /**
  * Matches presence of beans condition.
  *
@@ -45,7 +43,7 @@ public record MatchesPresenceOfBeansCondition(
         for (AnnotationClassValue<?> bean : beans) {
             Class<?> type = bean.getType().orElse(null);
             if (type == null || !beanContext.containsBean(type)) {
-                context.fail("No bean of type [" + normalizeBeanClassName(bean.getName()) + "] present within context");
+                context.fail("No bean of type [" + bean.getName() + "] present within context");
                 return false;
             }
         }
