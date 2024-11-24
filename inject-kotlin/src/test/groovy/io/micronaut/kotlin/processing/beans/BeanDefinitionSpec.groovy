@@ -637,6 +637,7 @@ class SampleEvent
         cleanup:
         context.close()
     }
+
     void "test @Property targeting field"() {
         given:
         def context = buildContext('''
@@ -1349,5 +1350,54 @@ class Test {
 
         then:
             definition == null
+    }
+
+    void "test @Inject nested config properties"() {
+        given:
+        def context = KotlinCompiler.buildContext('''
+package test
+
+import io.micronaut.context.annotation.ConfigurationProperties
+import jakarta.inject.Inject
+
+@ConfigurationProperties("product-aggregator")
+class NestedConfig {
+
+    @Inject
+    internal var levelOnez = LevelOne()
+
+    @ConfigurationProperties("level-one")
+    internal class LevelOne {
+
+        internal lateinit var levelOneValue: String
+
+        @Inject
+        internal var levelTwo = LevelTwo()
+
+        @ConfigurationProperties("level-two")
+        internal class LevelTwo {
+            lateinit var levelTwoValue: String
+        }
+    }
+}
+
+''')
+
+        def bean = getBean(context, 'test.NestedConfig')
+        def definition = KotlinCompiler.getBeanDefinition(context, 'test.NestedConfig')
+
+        expect:
+
+        definition.properties.injectedFields.size() == 1
+        definition.properties.injectedFields[0].name == "levelOnez"
+
+        bean.levelOnez != null
+        bean.levelOnez.levelOneValue == "ONE"
+        bean.levelOnez.levelTwo
+        bean.levelOnez.levelTwo != null
+        bean.levelOnez.levelTwo.levelTwoValue == "TWO"
+
+        cleanup:
+        context.close()
     }
 }
