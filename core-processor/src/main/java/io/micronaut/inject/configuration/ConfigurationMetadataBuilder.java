@@ -178,6 +178,11 @@ public class ConfigurationMetadataBuilder {
         metadata.name = name;
         metadata.path = propertyType.stringValue(ConfigurationReader.class, ConfigurationReader.PREFIX)
             .orElseGet(() -> NameUtils.hyphenate(buildPropertyPath(owningType, declaringType, name), true));
+        if (propertyType.hasStereotype(ConfigurationReader.class)) {
+            metadata.path = ConfigurationUtils.getRequiredTypePath(propertyType);
+        } else {
+            metadata.path = NameUtils.hyphenate(buildPropertyPath(owningType, declaringType, name), true);
+        }
         metadata.type = propertyType.getType().getName();
         metadata.description = description;
         metadata.defaultValue = defaultValue;
