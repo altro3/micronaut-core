@@ -256,7 +256,11 @@ public interface Cookie extends Comparable<Cookie>, Serializable {
      */
     default @NonNull Cookie maxAge(@NonNull TemporalAmount maxAge) {
         ArgumentUtils.requireNonNull("maxAge", maxAge);
-        return maxAge(maxAge.get(ChronoUnit.SECONDS));
+        try {
+            return maxAge(maxAge.get(ChronoUnit.SECONDS));
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Can't convert cookie max-age value " + maxAge + " to seconds", e);
+        }
     }
 
     /**
