@@ -16,7 +16,7 @@ import org.reactivestreams.Publisher
 import reactor.core.publisher.Flux
 import spock.lang.Unroll
 
-public class QueryParameterFormattingSpec extends AbstractMicronautSpec {
+class QueryParameterFormattingSpec extends AbstractMicronautSpec {
     private static String PIPE = "%7C";
 
     @Unroll

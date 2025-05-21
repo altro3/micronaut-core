@@ -16,13 +16,18 @@
 package io.micronaut.http.bind.binders;
 
 import io.micronaut.core.annotation.AnnotationMetadata;
+import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.bind.annotation.AbstractArgumentBinder;
 import io.micronaut.core.convert.ArgumentConversionContext;
 import io.micronaut.core.convert.ConversionService;
+import io.micronaut.core.convert.format.Format;
+import io.micronaut.core.convert.value.ConvertibleMultiValues;
 import io.micronaut.core.naming.NameUtils;
 import io.micronaut.core.type.Argument;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.annotation.Header;
+
+import java.util.Optional;
 
 /**
  * An {@link io.micronaut.core.bind.annotation.AnnotatedArgumentBinder} implementation that uses the {@link Header}
@@ -50,14 +55,30 @@ public class HeaderAnnotationBinder<T> extends AbstractArgumentBinder<T> impleme
         super(conversionService, argument);
     }
 
+    @NonNull
     @Override
-    public RequestArgumentBinder<T> createSpecific(Argument<T> argument) {
+    public RequestArgumentBinder<T> createSpecific(@NonNull Argument<T> argument) {
         return new HeaderAnnotationBinder<>(conversionService, argument);
     }
 
     @Override
-    public BindingResult<T> bind(ArgumentConversionContext<T> argument, HttpRequest<?> source) {
-        return doBind(argument, source.getHeaders());
+    public BindingResult<T> bind(ArgumentConversionContext<T> context, HttpRequest<?> source) {
+
+        ConvertibleMultiValues<String> headers = source.getHeaders();
+        Argument<T> argument = context.getArgument();
+        AnnotationMetadata annotationMetadata = argument.getAnnotationMetadata();
+
+        Optional<T> multiValueConversion;
+        if (annotationMetadata.hasAnnotation(Format.class)) {
+            multiValueConversion = conversionService.convert(headers, context);
+        } else {
+            multiValueConversion = Optional.empty();
+        }
+        if (multiValueConversion.isPresent()) {
+            return () -> multiValueConversion;
+        }
+
+        return doBind(context, headers);
     }
 
     @Override
@@ -65,6 +86,7 @@ public class HeaderAnnotationBinder<T> extends AbstractArgumentBinder<T> impleme
         return Header.class;
     }
 
+    @NonNull
     @Override
     protected String getParameterName(Argument<T> argument) {
         AnnotationMetadata annotationMetadata = argument.getAnnotationMetadata();

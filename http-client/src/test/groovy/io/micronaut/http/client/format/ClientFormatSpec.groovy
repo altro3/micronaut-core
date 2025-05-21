@@ -4,6 +4,7 @@ import io.micronaut.context.annotation.Property
 import io.micronaut.context.annotation.Requires
 import io.micronaut.core.annotation.Introspected
 import io.micronaut.core.beans.exceptions.IntrospectionException
+import io.micronaut.core.convert.converters.MultiValuesConverterFactory
 import io.micronaut.core.convert.exceptions.ConversionErrorException
 import io.micronaut.core.convert.format.Format
 import io.micronaut.http.HttpRequest
@@ -14,6 +15,12 @@ import io.micronaut.http.client.annotation.Client
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
 import spock.lang.Specification
+
+import static io.micronaut.core.convert.converters.MultiValuesConverterFactory.FORMAT_CSV
+import static io.micronaut.core.convert.converters.MultiValuesConverterFactory.FORMAT_DEEP_OBJECT
+import static io.micronaut.core.convert.converters.MultiValuesConverterFactory.FORMAT_MULTI
+import static io.micronaut.core.convert.converters.MultiValuesConverterFactory.FORMAT_PIPES
+import static io.micronaut.core.convert.converters.MultiValuesConverterFactory.FORMAT_SSV
 
 @Property(name = 'spec.name', value = 'ClientFormatSpec')
 @MicronautTest
@@ -121,25 +128,46 @@ class ClientFormatSpec extends Specification {
     @Client("/format")
     static interface FormatClient {
         @Get("/queryIdentity")
-        String pipesFormattedList(@QueryValue @Format("PIPES") List<String> param)
+        String pipesFormattedList(@QueryValue @Format(FORMAT_PIPES) List<String> param)
 
         @Get("/queryIdentity")
-        String pipesFormattedMap(@QueryValue @Format("PIPES") Map<String, Object> param)
+        String pipesFormattedMap(@QueryValue @Format(FORMAT_PIPES) Map<String, Object> param)
 
         @Get("/queryIdentity")
-        String pipesFormattedObject(@QueryValue @Format("PIPES") Object param)
+        String pipesFormattedObject(@QueryValue @Format(FORMAT_PIPES) Object param)
 
         @Get("/queryIdentity")
-        String csvFormattedObject(@QueryValue @Format("CSV") Object csv)
+        String csvFormattedObject(@QueryValue @Format(FORMAT_CSV) Object csv)
 
         @Get("/queryIdentity")
-        String ssvFormattedObject(@QueryValue("ssv") @Format("SSV") Object param)
+        String ssvFormattedObject(@QueryValue("ssv") @Format(FORMAT_SSV) Object param)
 
         @Get("/queryIdentity")
-        String multiFormattedObject(@QueryValue @Format("MULTI") Object multi)
+        String multiFormattedObject(@QueryValue @Format(FORMAT_MULTI) Object multi)
 
         @Get("/queryIdentity")
-        String deepObjectFormattedValue(@QueryValue @Format("DEEP_OBJECT") Object param)
+        String deepObjectFormattedValue(@QueryValue @Format(FORMAT_DEEP_OBJECT) Object param)
+
+        @Get("/headerIdentity")
+        String pipesFormattedList(@QueryValue @Format(FORMAT_PIPES) List<String> param)
+
+        @Get("/headerIdentity")
+        String pipesFormattedMap(@QueryValue @Format(FORMAT_PIPES) Map<String, Object> param)
+
+        @Get("/headerIdentity")
+        String pipesFormattedObject(@QueryValue @Format(FORMAT_PIPES) Object param)
+
+        @Get("/headerIdentity")
+        String csvFormattedObject(@QueryValue @Format(FORMAT_CSV) Object csv)
+
+        @Get("/headerIdentity")
+        String ssvFormattedObject(@QueryValue("ssv") @Format(FORMAT_SSV) Object param)
+
+        @Get("/headerIdentity")
+        String multiFormattedObject(@QueryValue @Format(FORMAT_MULTI) Object multi)
+
+        @Get("/headerIdentity")
+        String deepObjectFormattedValue(@QueryValue @Format(FORMAT_DEEP_OBJECT) Object param)
     }
 
     @Requires(property = 'spec.name', value = 'ClientFormatSpec')
