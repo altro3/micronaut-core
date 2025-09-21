@@ -48,8 +48,8 @@ public class HeaderVersionResolver implements RequestVersionResolver {
     @Override
     public Optional<String> resolve(HttpRequest<?> request) {
         return headerNames.stream()
-                .map(name -> request.getHeaders().get(name))
-                .filter(Objects::nonNull)
-                .findFirst();
+            .map(name -> request.getHeaders().get(name))
+            .filter(Objects::nonNull)
+            .findFirst();
     }
 }

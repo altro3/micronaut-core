@@ -53,10 +53,10 @@ public class AnnotatedFilterRouteBuilder extends DefaultRouteBuilder implements 
      */
     @Inject
     public AnnotatedFilterRouteBuilder(
-            ExecutionHandleLocator executionHandleLocator,
-            UriNamingStrategy uriNamingStrategy,
-            ConversionService conversionService,
-            @Nullable ServerContextPathProvider contextPathProvider) {
+        ExecutionHandleLocator executionHandleLocator,
+        UriNamingStrategy uriNamingStrategy,
+        ConversionService conversionService,
+        @Nullable ServerContextPathProvider contextPathProvider) {
         super(executionHandleLocator, uriNamingStrategy, conversionService);
         this.contextPathProvider = contextPathProvider;
     }

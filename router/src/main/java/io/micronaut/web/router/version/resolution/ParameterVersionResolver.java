@@ -48,8 +48,8 @@ public class ParameterVersionResolver implements RequestVersionResolver {
     @Override
     public Optional<String> resolve(HttpRequest<?> request) {
         return parameterNames.stream()
-                .map(name -> request.getParameters().get(name))
-                .filter(Objects::nonNull)
-                .findFirst();
+            .map(name -> request.getParameters().get(name))
+            .filter(Objects::nonNull)
+            .findFirst();
     }
 }

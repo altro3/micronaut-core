@@ -57,9 +57,9 @@ public class DuplicateRouteException extends RoutingException {
 
     private static String buildMessage(String uri, List<UriRouteMatch<Object, Object>> uriRoutes) {
         return "More than 1 route matched the incoming request. The following routes matched "
-                + uri + ": "
-                + uriRoutes.stream()
-                .map((Object::toString))
-                .collect(Collectors.joining(", "));
+            + uri + ": "
+            + uriRoutes.stream()
+            .map((Object::toString))
+            .collect(Collectors.joining(", "));
     }
 }

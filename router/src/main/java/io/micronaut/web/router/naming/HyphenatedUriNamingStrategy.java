@@ -66,7 +66,7 @@ public class HyphenatedUriNamingStrategy implements RouteBuilder.UriNamingStrate
     @Override
     public @NonNull String resolveUri(BeanDefinition<?> beanDefinition) {
         String uri = beanDefinition.stringValue(UriMapping.class).orElseGet(() ->
-                beanDefinition.stringValue(Controller.class).orElse(UriMapping.DEFAULT_URI)
+            beanDefinition.stringValue(Controller.class).orElse(UriMapping.DEFAULT_URI)
         );
         return contextPath + normalizeUri(uri);
     }

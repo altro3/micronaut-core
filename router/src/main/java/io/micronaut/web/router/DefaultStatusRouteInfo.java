@@ -135,7 +135,7 @@ public final class DefaultStatusRouteInfo<T, R> extends DefaultRequestMatcher<T,
             return false;
         }
         return statusCode == that.statusCode &&
-                Objects.equals(originatingType, that.originatingType);
+            Objects.equals(originatingType, that.originatingType);
     }
 
     @Override

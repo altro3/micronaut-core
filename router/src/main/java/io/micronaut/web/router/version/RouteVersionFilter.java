@@ -16,8 +16,8 @@
 package io.micronaut.web.router.version;
 
 import io.micronaut.context.annotation.Requires;
-import io.micronaut.core.annotation.Nullable;
 import io.micronaut.core.annotation.NonNull;
+import io.micronaut.core.annotation.Nullable;
 import io.micronaut.core.util.ArgumentUtils;
 import io.micronaut.core.version.annotation.Version;
 import io.micronaut.http.HttpHeaders;
@@ -83,9 +83,9 @@ public class RouteVersionFilter implements VersionRouteMatchFilter {
      */
     @Inject
     public RouteVersionFilter(List<RequestVersionResolver> resolvingStrategies,
-                                         @Nullable DefaultVersionProvider defaultVersionProvider,
-                                         @Nullable RoutesVersioningConfiguration routesVersioningConfiguration,
-                                         @Nullable HeaderVersionResolverConfiguration headerVersionResolverConfiguration) {
+                              @Nullable DefaultVersionProvider defaultVersionProvider,
+                              @Nullable RoutesVersioningConfiguration routesVersioningConfiguration,
+                              @Nullable HeaderVersionResolverConfiguration headerVersionResolverConfiguration) {
         this.resolvingStrategies = resolvingStrategies;
         this.defaultVersionProvider = defaultVersionProvider;
         this.routesVersioningConfiguration = routesVersioningConfiguration;
@@ -177,9 +177,9 @@ public class RouteVersionFilter implements VersionRouteMatchFilter {
     @NonNull
     protected Optional<String> resolveVersion(@NonNull HttpRequest<?> request) {
         return resolvingStrategies.stream()
-                .map(strategy -> strategy.resolve(request).orElse(null))
-                .filter(Objects::nonNull)
-                .findFirst();
+            .map(strategy -> strategy.resolve(request).orElse(null))
+            .filter(Objects::nonNull)
+            .findFirst();
     }
 
     /**

@@ -77,13 +77,13 @@ public class AnnotatedMethodRouteBuilder extends DefaultRouteBuilder implements 
             final BeanDefinition bean = definition.beanDefinition;
             final ExecutableMethod method = definition.executableMethod;
             Set<String> uris = this.resolveUrisMapping(Get.class, method);
-            for (String uri: uris) {
+            for (String uri : uris) {
                 MediaType[] produces = resolveProduces(method);
                 UriRoute route = GET(resolveUri(bean, uri,
                         method,
                         uriNamingStrategy),
-                        bean,
-                        method).produces(produces);
+                    bean,
+                    method).produces(produces);
 
                 if (definition.port > -1) {
                     route.exposedPort(definition.port);
@@ -95,8 +95,8 @@ public class AnnotatedMethodRouteBuilder extends DefaultRouteBuilder implements 
                     route = HEAD(resolveUri(bean, uri,
                             method,
                             uriNamingStrategy),
-                            bean,
-                            method).produces(produces);
+                        bean,
+                        method).produces(produces);
                     if (definition.port > -1) {
                         route.exposedPort(definition.port);
                     }
@@ -111,14 +111,14 @@ public class AnnotatedMethodRouteBuilder extends DefaultRouteBuilder implements 
             final ExecutableMethod method = definition.executableMethod;
             final BeanDefinition bean = definition.beanDefinition;
             Set<String> uris = this.resolveUrisMapping(Post.class, method);
-            for (String uri: uris) {
+            for (String uri : uris) {
                 MediaType[] consumes = resolveConsumes(method);
                 MediaType[] produces = resolveProduces(method);
                 UriRoute route = POST(resolveUri(bean, uri,
                         method,
                         uriNamingStrategy),
-                        bean,
-                        method);
+                    bean,
+                    method);
                 route = route.consumes(consumes).produces(produces);
                 if (definition.port > -1) {
                     route.exposedPort(definition.port);
@@ -134,15 +134,15 @@ public class AnnotatedMethodRouteBuilder extends DefaultRouteBuilder implements 
             final BeanDefinition bean = definition.beanDefinition;
 
             Set<String> uris = this.resolveUrisMapping(CustomHttpMethod.class, method);
-            for (String uri: uris) {
+            for (String uri : uris) {
                 MediaType[] consumes = resolveConsumes(method);
                 MediaType[] produces = resolveProduces(method);
                 String methodName = method.stringValue(CustomHttpMethod.class, "method").get();
                 UriRoute route = buildBeanRoute(methodName, HttpMethod.CUSTOM, resolveUri(bean, uri,
                         method,
                         uriNamingStrategy),
-                        bean,
-                        method);
+                    bean,
+                    method);
                 route = route.consumes(consumes).produces(produces);
                 if (definition.port > -1) {
                     route.exposedPort(definition.port);
@@ -158,14 +158,14 @@ public class AnnotatedMethodRouteBuilder extends DefaultRouteBuilder implements 
             final BeanDefinition bean = definition.beanDefinition;
 
             Set<String> uris = this.resolveUrisMapping(Put.class, method);
-            for (String uri: uris) {
+            for (String uri : uris) {
                 MediaType[] consumes = resolveConsumes(method);
                 MediaType[] produces = resolveProduces(method);
                 UriRoute route = PUT(resolveUri(bean, uri,
                         method,
                         uriNamingStrategy),
-                        bean,
-                        method);
+                    bean,
+                    method);
                 route = route.consumes(consumes).produces(produces);
                 if (definition.port > -1) {
                     route.exposedPort(definition.port);
@@ -181,14 +181,14 @@ public class AnnotatedMethodRouteBuilder extends DefaultRouteBuilder implements 
             final BeanDefinition bean = definition.beanDefinition;
 
             Set<String> uris = this.resolveUrisMapping(Patch.class, method);
-            for (String uri: uris) {
+            for (String uri : uris) {
                 MediaType[] consumes = resolveConsumes(method);
                 MediaType[] produces = resolveProduces(method);
                 UriRoute route = PATCH(resolveUri(bean, uri,
                         method,
                         uriNamingStrategy),
-                        bean,
-                        method);
+                    bean,
+                    method);
                 route = route.consumes(consumes).produces(produces);
                 if (definition.port > -1) {
                     route.exposedPort(definition.port);
@@ -204,14 +204,14 @@ public class AnnotatedMethodRouteBuilder extends DefaultRouteBuilder implements 
             final BeanDefinition bean = definition.beanDefinition;
 
             Set<String> uris = this.resolveUrisMapping(Delete.class, method);
-            for (String uri: uris) {
+            for (String uri : uris) {
                 MediaType[] consumes = resolveConsumes(method);
                 MediaType[] produces = resolveProduces(method);
                 UriRoute route = DELETE(resolveUri(bean, uri,
                         method,
                         uriNamingStrategy),
-                        bean,
-                        method);
+                    bean,
+                    method);
                 route = route.consumes(consumes).produces(produces);
                 if (definition.port > -1) {
                     route.exposedPort(definition.port);
@@ -228,12 +228,12 @@ public class AnnotatedMethodRouteBuilder extends DefaultRouteBuilder implements 
             final BeanDefinition bean = definition.beanDefinition;
 
             Set<String> uris = this.resolveUrisMapping(Head.class, method);
-            for (String uri: uris) {
+            for (String uri : uris) {
                 UriRoute route = HEAD(resolveUri(bean, uri,
                         method,
                         uriNamingStrategy),
-                        bean,
-                        method);
+                    bean,
+                    method);
                 if (definition.port > -1) {
                     route.exposedPort(definition.port);
                 }
@@ -248,14 +248,14 @@ public class AnnotatedMethodRouteBuilder extends DefaultRouteBuilder implements 
             final BeanDefinition bean = definition.beanDefinition;
 
             Set<String> uris = this.resolveUrisMapping(Options.class, method);
-            for (String uri: uris) {
+            for (String uri : uris) {
                 MediaType[] consumes = resolveConsumes(method);
                 MediaType[] produces = resolveProduces(method);
                 UriRoute route = OPTIONS(resolveUri(bean, uri,
                         method,
                         uriNamingStrategy),
-                        bean,
-                        method);
+                    bean,
+                    method);
                 route = route.consumes(consumes).produces(produces);
                 if (definition.port > -1) {
                     route.exposedPort(definition.port);
@@ -271,12 +271,12 @@ public class AnnotatedMethodRouteBuilder extends DefaultRouteBuilder implements 
             final BeanDefinition bean = definition.beanDefinition;
 
             Set<String> uris = this.resolveUrisMapping(Trace.class, method);
-            for (String uri: uris) {
+            for (String uri : uris) {
                 UriRoute route = TRACE(resolveUri(bean, uri,
                         method,
                         uriNamingStrategy),
-                        bean,
-                        method);
+                    bean,
+                    method);
                 if (definition.port > -1) {
                     route.exposedPort(definition.port);
                 }
@@ -287,10 +287,10 @@ public class AnnotatedMethodRouteBuilder extends DefaultRouteBuilder implements 
         });
 
         httpMethodsHandlers.put(Error.class, (RouteDefinition definition) -> {
-            final ExecutableMethod method = definition.executableMethod;
-            final BeanDefinition bean = definition.beanDefinition;
+                final ExecutableMethod method = definition.executableMethod;
+                final BeanDefinition bean = definition.beanDefinition;
 
-            boolean isGlobal = method.isTrue(Error.class, "global");
+                boolean isGlobal = method.isTrue(Error.class, "global");
                 Class<?> declaringType = bean.getBeanType();
                 if (method.isPresent(Error.class, "status")) {
                     Optional<HttpStatus> value = method.enumValue(Error.class, "status", HttpStatus.class);
@@ -311,9 +311,9 @@ public class AnnotatedMethodRouteBuilder extends DefaultRouteBuilder implements 
                     }
                     if (exceptionType == null) {
                         exceptionType = Arrays.stream(method.getArgumentTypes())
-                                .filter(Throwable.class::isAssignableFrom)
-                                .findFirst()
-                                .orElse(Throwable.class);
+                            .filter(Throwable.class::isAssignableFrom)
+                            .findFirst()
+                            .orElse(Throwable.class);
                     }
 
                     if (isGlobal) {
@@ -369,14 +369,14 @@ public class AnnotatedMethodRouteBuilder extends DefaultRouteBuilder implements 
         if (actionAnn.isEmpty() && method.isDeclaredAnnotationPresent(UriMapping.class)) {
             Set<String> uris = CollectionUtils.setOf(method.stringValues(UriMapping.class, "uris"));
             uris.add(method.stringValue(UriMapping.class).orElse(UriMapping.DEFAULT_URI));
-            for (String uri: uris) {
+            for (String uri : uris) {
                 MediaType[] produces = MediaType.of(method.stringValues(Produces.class));
                 Route route = GET(resolveUri(beanDefinition, uri,
                         method,
                         uriNamingStrategy),
-                        method.getDeclaringType(),
-                        method.getMethodName(),
-                        method.getArgumentTypes()).produces(produces);
+                    method.getDeclaringType(),
+                    method.getMethodName(),
+                    method.getArgumentTypes()).produces(produces);
                 if (LOG.isDebugEnabled()) {
                     LOG.debug("Created Route: {}", route);
                 }
@@ -397,15 +397,10 @@ public class AnnotatedMethodRouteBuilder extends DefaultRouteBuilder implements 
     /**
      * state class for defining routes.
      */
-    private static final class RouteDefinition {
-        private final BeanDefinition beanDefinition;
-        private final ExecutableMethod executableMethod;
-        private final int port;
-
-        public RouteDefinition(BeanDefinition beanDefinition, ExecutableMethod executableMethod, int port) {
-            this.beanDefinition = beanDefinition;
-            this.executableMethod = executableMethod;
-            this.port = port;
-        }
+    private record RouteDefinition(
+        BeanDefinition beanDefinition,
+        ExecutableMethod executableMethod,
+        int port
+    ) {
     }
 }

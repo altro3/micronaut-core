@@ -103,7 +103,7 @@ public class FilteredRouter implements Router {
     public <T, R> List<UriRouteMatch<T, R>> findAllClosest(@NonNull HttpRequest<?> request) {
         List<UriRouteMatch<T, R>> closestMatches = router.findAllClosest(request);
         return closestMatches.stream().filter(routeFilter.filter(request))
-                    .collect(Collectors.toList());
+            .collect(Collectors.toList());
     }
 
     @NonNull

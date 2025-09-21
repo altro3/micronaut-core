@@ -116,13 +116,13 @@ public final class DefaultErrorRouteInfo<T, R> extends DefaultRequestMatcher<T, 
         }
         DefaultErrorRouteInfo that = (DefaultErrorRouteInfo) o;
         return exceptionType.equals(that.exceptionType) &&
-                Objects.equals(originatingType, that.originatingType);
+            Objects.equals(originatingType, that.originatingType);
     }
 
     @Override
     public String toString() {
         return ' ' + exceptionType.getSimpleName()
-                + " -> " + getTargetMethod().getDeclaringType().getSimpleName()
-                + '#' + getTargetMethod();
+            + " -> " + getTargetMethod().getDeclaringType().getSimpleName()
+            + '#' + getTargetMethod();
     }
 }

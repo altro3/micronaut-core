@@ -106,7 +106,7 @@ public interface RouteBuilder {
      *     DELETE "/book{/id}"
      * }</pre>
      *
-     * <p>By default it is assumed the accepted and returned content type is
+     * <p>By default, it is assumed the accepted and returned content type is
      * {@link io.micronaut.http.MediaType#APPLICATION_JSON_TYPE}.</p>
      *
      * @param cls The class
@@ -138,7 +138,7 @@ public interface RouteBuilder {
      *     DELETE "/book"
      * }</pre>
      *
-     * <p>By default it is assumed the accepted and returned content type is
+     * <p>By default, it is assumed the accepted and returned content type is
      * {@link io.micronaut.http.MediaType#APPLICATION_JSON_TYPE}.</p>
      *
      * @param cls The class
@@ -235,10 +235,10 @@ public interface RouteBuilder {
      */
     default ErrorRoute error(Class<? extends Throwable> error, Object instance) {
         return error(
-                error,
-                instance.getClass(),
-                NameUtils.decapitalize(NameUtils.trimSuffix(error.getSimpleName(), "Exception", "Error")),
-                error);
+            error,
+            instance.getClass(),
+            NameUtils.decapitalize(NameUtils.trimSuffix(error.getSimpleName(), "Exception", "Error")),
+            error);
     }
 
     /**
@@ -1176,7 +1176,7 @@ public interface RouteBuilder {
         default @NonNull
         String resolveUri(BeanDefinition<?> beanDefinition) {
             String uri = beanDefinition.stringValue(UriMapping.class).orElseGet(() ->
-                    beanDefinition.stringValue(Controller.class).orElse(UriMapping.DEFAULT_URI)
+                beanDefinition.stringValue(Controller.class).orElse(UriMapping.DEFAULT_URI)
             );
             uri = normalizeUri(uri);
             if (uri != null) {

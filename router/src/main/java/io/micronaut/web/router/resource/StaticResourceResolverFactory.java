@@ -15,11 +15,11 @@
  */
 package io.micronaut.web.router.resource;
 
-import java.util.List;
-
 import io.micronaut.context.annotation.Factory;
 import io.micronaut.core.annotation.NonNull;
 import jakarta.inject.Singleton;
+
+import java.util.List;
 
 /**
  * A factory for creating the default {@link io.micronaut.web.router.resource.StaticResourceResolver}.

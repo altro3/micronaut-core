@@ -76,7 +76,7 @@ sealed class DefaultMethodBasedRouteInfo<T, R> extends DefaultRouteInfo<R> imple
         this.targetMethod = targetMethod;
 
         Argument<?>[] arguments = targetMethod.getArguments();
-         argumentNames = new String[arguments.length];
+        argumentNames = new String[arguments.length];
         Map<String, Argument<?>> requiredInputs;
         if (arguments.length > 0) {
             Map<String, Argument<?>> ri = CollectionUtils.newLinkedHashMap(arguments.length);

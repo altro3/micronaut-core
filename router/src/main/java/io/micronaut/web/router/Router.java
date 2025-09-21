@@ -125,7 +125,7 @@ public interface Router {
      * @return A {@link Stream} of possible {@link Route} instances.
      */
     @NonNull
-    default  <T, R> Stream<UriRouteMatch<T, R>> find(@NonNull HttpRequest<?> request, @NonNull CharSequence uri) {
+    default <T, R> Stream<UriRouteMatch<T, R>> find(@NonNull HttpRequest<?> request, @NonNull CharSequence uri) {
         return find(HttpMethod.valueOf(request.getMethodName()), uri, request);
     }
 
@@ -228,9 +228,9 @@ public interface Router {
      * @return The {@link RouteMatch}
      */
     <R> Optional<RouteMatch<R>> findErrorRoute(
-            @NonNull Class<?> originatingClass,
-            @NonNull Throwable error,
-            HttpRequest<?> request);
+        @NonNull Class<?> originatingClass,
+        @NonNull Throwable error,
+        HttpRequest<?> request);
 
     /**
      * Match a route to an error.
@@ -241,8 +241,8 @@ public interface Router {
      * @return The {@link RouteMatch}
      */
     <R> Optional<RouteMatch<R>> findErrorRoute(
-            @NonNull Throwable error,
-            HttpRequest<?> request);
+        @NonNull Throwable error,
+        HttpRequest<?> request);
 
     /**
      * Found a {@link RouteMatch} for the given {@link io.micronaut.http.HttpStatus} code.
@@ -254,9 +254,9 @@ public interface Router {
      * @return The {@link RouteMatch}
      */
     <R> Optional<RouteMatch<R>> findStatusRoute(
-            @NonNull Class<?> originatingClass,
-            @NonNull HttpStatus status,
-            HttpRequest<?> request);
+        @NonNull Class<?> originatingClass,
+        @NonNull HttpStatus status,
+        HttpRequest<?> request);
 
     /**
      * Found a {@link RouteMatch} for the given status code.
@@ -268,9 +268,9 @@ public interface Router {
      * @return The {@link RouteMatch}
      */
     default <R> Optional<RouteMatch<R>> findStatusRoute(
-            @NonNull Class<?> originatingClass,
-            int statusCode,
-            HttpRequest<?> request) {
+        @NonNull Class<?> originatingClass,
+        int statusCode,
+        HttpRequest<?> request) {
         HttpStatus status;
         try {
             status = HttpStatus.valueOf(statusCode);
@@ -290,8 +290,8 @@ public interface Router {
      * @return The {@link RouteMatch}
      */
     <R> Optional<RouteMatch<R>> findStatusRoute(
-            @NonNull HttpStatus status,
-            HttpRequest<?> request);
+        @NonNull HttpStatus status,
+        HttpRequest<?> request);
 
     /**
      * Found a {@link RouteMatch} for the given status code.
@@ -302,8 +302,8 @@ public interface Router {
      * @return The {@link RouteMatch}
      */
     default <R> Optional<RouteMatch<R>> findStatusRoute(
-            int statusCode,
-            HttpRequest<?> request) {
+        int statusCode,
+        HttpRequest<?> request) {
         HttpStatus status;
         try {
             status = HttpStatus.valueOf(statusCode);

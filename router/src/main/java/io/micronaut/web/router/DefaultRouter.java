@@ -75,7 +75,7 @@ public class DefaultRouter implements Router, HttpServerFilterResolver<RouteMatc
     private final List<FilterRoute> preconditionFilterRoutes;
     private final List<FilterRoute> preMatchingAlwaysMatchesFilterRoutes;
     private final List<FilterRoute> preMatchingPreconditionFilterRoutes;
-    // ArrayList to avoid interface checkcast
+    // ArrayList to avoid interface check cast
     private final Supplier<ArrayList<GenericHttpFilter>> alwaysMatchesHttpFilters;
     private final Supplier<ArrayList<GenericHttpFilter>> preMatchingAlwaysMatchesHttpFilters;
 
@@ -235,7 +235,7 @@ public class DefaultRouter implements Router, HttpServerFilterResolver<RouteMatc
     @Override
     public <T, R> Stream<UriRouteMatch<T, R>> find(@NonNull HttpMethod httpMethod, @NonNull CharSequence uri, @Nullable HttpRequest<?> context) {
         return this.<T, R>toMatches(
-                uri.toString(),
+            uri.toString(),
             allRoutesByMethod.getOrDefault(httpMethod.name(), EMPTY)
         ).stream();
     }
@@ -441,7 +441,7 @@ public class DefaultRouter implements Router, HttpServerFilterResolver<RouteMatc
         for (ErrorRouteInfo<Object, Object> errorRouteInfo : errorRoutes) {
             Optional match = errorRouteInfo.match(originatingClass, error);
             match.ifPresent(m ->
-                    matchedRoutes.add((RouteMatch<R>) m)
+                matchedRoutes.add((RouteMatch<R>) m)
             );
         }
         return findRouteMatch(matchedRoutes, error);
@@ -449,15 +449,15 @@ public class DefaultRouter implements Router, HttpServerFilterResolver<RouteMatc
 
     @Override
     public <R> Optional<RouteMatch<R>> findErrorRoute(
-            @NonNull Class<?> originatingClass,
-            @NonNull Throwable error,
-            HttpRequest<?> request) {
+        @NonNull Class<?> originatingClass,
+        @NonNull Throwable error,
+        HttpRequest<?> request) {
         return findErrorRouteInternal(originatingClass, error, request);
     }
 
     private <R> Optional<RouteMatch<R>> findErrorRouteInternal(
-            @Nullable Class<?> originatingClass,
-            @NonNull Throwable error, HttpRequest<?> request) {
+        @Nullable Class<?> originatingClass,
+        @NonNull Throwable error, HttpRequest<?> request) {
         Collection<MediaType> accept = request.accept();
         final boolean hasAcceptHeader = CollectionUtils.isNotEmpty(accept);
         if (hasAcceptHeader) {
@@ -469,8 +469,7 @@ public class DefaultRouter implements Router, HttpServerFilterResolver<RouteMatc
                 if (!errorRoute.matching(request)) {
                     continue;
                 }
-                @SuppressWarnings("unchecked")
-                final var match = (RouteMatch<R>) errorRoute.match(originatingClass, error).orElse(null);
+                @SuppressWarnings("unchecked") final var match = (RouteMatch<R>) errorRoute.match(originatingClass, error).orElse(null);
                 if (match != null) {
                     matchedRoutes.add(match);
                 }
@@ -484,7 +483,7 @@ public class DefaultRouter implements Router, HttpServerFilterResolver<RouteMatc
                     continue;
                 }
                 @SuppressWarnings("unchecked") final RouteMatch<R> match = (RouteMatch<R>) errorRouteInfo
-                        .match(originatingClass, error).orElse(null);
+                    .match(originatingClass, error).orElse(null);
                 if (match != null) {
                     final List<MediaType> produces = match.getRouteInfo().getProduces();
                     if (CollectionUtils.isEmpty(produces) || produces.contains(MediaType.ALL_TYPE)) {
@@ -508,9 +507,9 @@ public class DefaultRouter implements Router, HttpServerFilterResolver<RouteMatc
 
     @Override
     public <R> Optional<RouteMatch<R>> findStatusRoute(
-            @NonNull Class<?> originatingClass,
-            @NonNull HttpStatus status,
-            HttpRequest<?> request) {
+        @NonNull Class<?> originatingClass,
+        @NonNull HttpStatus status,
+        HttpRequest<?> request) {
         return findStatusInternal(originatingClass, status.getCode(), request);
     }
 
@@ -541,7 +540,7 @@ public class DefaultRouter implements Router, HttpServerFilterResolver<RouteMatc
                     continue;
                 }
                 @SuppressWarnings("unchecked") final RouteMatch<R> match = (RouteMatch<R>) statusRouteInfo
-                        .match(originatingClass, status).orElse(null);
+                    .match(originatingClass, status).orElse(null);
                 if (match != null) {
                     return Optional.of(match);
                 }
@@ -553,7 +552,7 @@ public class DefaultRouter implements Router, HttpServerFilterResolver<RouteMatc
                     continue;
                 }
                 @SuppressWarnings("unchecked") final RouteMatch<R> match = (RouteMatch<R>) statusRouteInfo
-                        .match(originatingClass, status).orElse(null);
+                    .match(originatingClass, status).orElse(null);
                 if (match != null) {
                     final List<MediaType> produces = match.getRouteInfo().getProduces();
                     if (CollectionUtils.isEmpty(produces) || produces.contains(MediaType.ALL_TYPE)) {
@@ -814,8 +813,8 @@ public class DefaultRouter implements Router, HttpServerFilterResolver<RouteMatc
                 String path = request.getPath();
                 String[] patterns = entry.getPatterns();
                 FilterPatternStyle patternStyle = entry.getAnnotationMetadata()
-                        .enumValue("patternStyle", FilterPatternStyle.class)
-                        .orElse(FilterPatternStyle.ANT);
+                    .enumValue("patternStyle", FilterPatternStyle.class)
+                    .orElse(FilterPatternStyle.ANT);
                 boolean matches = true;
                 for (String pattern : patterns) {
                     if (!matches) {

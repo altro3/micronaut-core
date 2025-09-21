@@ -67,7 +67,7 @@ public class ProducesMediaTypeQualifier<T> implements Qualifier<T> {
             return false;
         }
 
-        ProducesMediaTypeQualifier that = (ProducesMediaTypeQualifier) o;
+        var that = (ProducesMediaTypeQualifier<?>) o;
 
         return contentType.equals(that.contentType);
     }

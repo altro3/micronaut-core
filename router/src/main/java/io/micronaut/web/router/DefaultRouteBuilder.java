@@ -193,7 +193,7 @@ public abstract class DefaultRouteBuilder implements RouteBuilder {
         Optional<MethodExecutionHandle<Object, Object>> executionHandle = executionHandleLocator.findExecutionHandle((Class<Object>) type, method, parameterTypes);
 
         MethodExecutionHandle<Object, Object> executableHandle = executionHandle.orElseThrow(() ->
-                new RoutingException("No such route: " + type.getName() + "." + method)
+            new RoutingException("No such route: " + type.getName() + "." + method)
         );
 
         DefaultStatusRoute statusRoute = new DefaultStatusRoute(originatingClass, status, executableHandle, conversionService);
@@ -373,7 +373,7 @@ public abstract class DefaultRouteBuilder implements RouteBuilder {
      */
     protected UriRoute buildRoute(HttpMethod httpMethod, String uri, Class<?> type, String method, Class<?>... parameterTypes) {
         Optional<? extends MethodExecutionHandle<Object, Object>> executionHandle =
-                executionHandleLocator.findExecutionHandle((Class<Object>) type, method, parameterTypes);
+            executionHandleLocator.findExecutionHandle((Class<Object>) type, method, parameterTypes);
 
         MethodExecutionHandle<Object, Object> executableHandle = executionHandle.orElseThrow(() ->
             new RoutingException("No such route: " + type.getName() + "." + method)
@@ -449,7 +449,7 @@ public abstract class DefaultRouteBuilder implements RouteBuilder {
      */
     protected UriRoute buildBeanRoute(String httpMethodName, HttpMethod httpMethod, String uri, BeanDefinition<?> beanDefinition, ExecutableMethod<?, ?> method) {
         MethodExecutionHandle<Object, Object> executionHandle = (MethodExecutionHandle<Object, Object>) executionHandleLocator
-                                                                .createExecutionHandle(beanDefinition, (ExecutableMethod<Object, Object>) method);
+            .createExecutionHandle(beanDefinition, (ExecutableMethod<Object, Object>) method);
         return buildRoute(httpMethodName, httpMethod, uri, executionHandle);
     }
 
@@ -542,7 +542,7 @@ public abstract class DefaultRouteBuilder implements RouteBuilder {
                 return false;
             }
             return Objects.equals(consumesMediaTypes, that.consumesMediaTypes) &&
-                    Objects.equals(producesMediaTypes, that.producesMediaTypes);
+                Objects.equals(producesMediaTypes, that.producesMediaTypes);
         }
 
         @Override
@@ -586,16 +586,16 @@ public abstract class DefaultRouteBuilder implements RouteBuilder {
         @Override
         public ErrorRouteInfo<Object, Object> toRouteInfo() {
             return new DefaultErrorRouteInfo<>(
-                    originatingClass,
-                    error,
-                    targetMethod,
-                    bodyArgumentName,
-                    bodyArgument,
-                    consumesMediaTypes,
-                    producesMediaTypes,
-                    conditions,
-                    conversionService,
-                    messageBodyHandlerRegistry);
+                originatingClass,
+                error,
+                targetMethod,
+                bodyArgumentName,
+                bodyArgument,
+                consumesMediaTypes,
+                producesMediaTypes,
+                conditions,
+                conversionService,
+                messageBodyHandlerRegistry);
         }
 
         @Override
@@ -648,7 +648,7 @@ public abstract class DefaultRouteBuilder implements RouteBuilder {
             }
             DefaultErrorRoute that = (DefaultErrorRoute) o;
             return error.equals(that.error) &&
-                    Objects.equals(originatingClass, that.originatingClass);
+                Objects.equals(originatingClass, that.originatingClass);
         }
 
         @Override
@@ -659,8 +659,8 @@ public abstract class DefaultRouteBuilder implements RouteBuilder {
         @Override
         public String toString() {
             return ' ' + error.getSimpleName()
-                    + " -> " + targetMethod.getDeclaringType().getSimpleName()
-                    + '#' + targetMethod;
+                + " -> " + targetMethod.getDeclaringType().getSimpleName()
+                + '#' + targetMethod;
         }
     }
 
@@ -696,16 +696,16 @@ public abstract class DefaultRouteBuilder implements RouteBuilder {
         @Override
         public StatusRouteInfo<Object, Object> toRouteInfo() {
             return new DefaultStatusRouteInfo<>(
-                    originatingClass,
-                    statusCode,
-                    targetMethod,
-                    bodyArgumentName,
-                    bodyArgument,
-                    consumesMediaTypes,
-                    producesMediaTypes,
-                    conditions,
-                    conversionService,
-                    messageBodyHandlerRegistry
+                originatingClass,
+                statusCode,
+                targetMethod,
+                bodyArgumentName,
+                bodyArgument,
+                consumesMediaTypes,
+                producesMediaTypes,
+                conditions,
+                conversionService,
+                messageBodyHandlerRegistry
             );
         }
 
@@ -757,7 +757,7 @@ public abstract class DefaultRouteBuilder implements RouteBuilder {
                 return false;
             }
             return statusCode == that.statusCode &&
-                    Objects.equals(originatingClass, that.originatingClass);
+                Objects.equals(originatingClass, that.originatingClass);
         }
 
         @Override
@@ -894,10 +894,10 @@ public abstract class DefaultRouteBuilder implements RouteBuilder {
         @Override
         public String toString() {
             return getHttpMethodName() + ' '
-                    + uriMatchTemplate
-                    + " -> " + targetMethod.getDeclaringType().getSimpleName()
-                    + '#' + targetMethod.getName()
-                    + " (" + String.join(",", consumesMediaTypes) + ')';
+                + uriMatchTemplate
+                + " -> " + targetMethod.getDeclaringType().getSimpleName()
+                + '#' + targetMethod.getName()
+                + " (" + String.join(",", consumesMediaTypes) + ')';
         }
 
         @Override

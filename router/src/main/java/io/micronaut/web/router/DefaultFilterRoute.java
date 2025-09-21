@@ -112,7 +112,7 @@ final class DefaultFilterRoute implements FilterRoute {
      * @param filter A {@link Supplier} for an HTTP filter
      */
     DefaultFilterRoute(String pattern, Supplier<GenericHttpFilter> filter) {
-       this(pattern, filter, AnnotationMetadataResolver.DEFAULT);
+        this(pattern, filter, AnnotationMetadataResolver.DEFAULT);
     }
 
     @Override

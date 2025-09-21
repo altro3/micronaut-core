@@ -40,7 +40,7 @@ public final class UriUtil {
      */
     public static String toValidPath(String path) {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < path.length();) {
+        for (int i = 0; i < path.length(); ) {
             int cp = path.codePointAt(i);
             if (cp == '%') {
                 boolean validEscape;

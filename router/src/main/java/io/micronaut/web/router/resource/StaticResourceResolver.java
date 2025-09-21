@@ -62,7 +62,7 @@ public class StaticResourceResolver {
             this.resourceMappings = new LinkedHashMap<>();
             this.pathMatcher = PathMatcher.ANT;
             if (CollectionUtils.isNotEmpty(configurations)) {
-                for (StaticResourceConfiguration config: configurations) {
+                for (StaticResourceConfiguration config : configurations) {
                     if (config.isEnabled()) {
                         this.resourceMappings.put(config.getMapping(), config.getResourceLoaders());
                     }

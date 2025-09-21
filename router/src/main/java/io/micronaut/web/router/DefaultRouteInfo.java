@@ -148,11 +148,11 @@ public class DefaultRouteInfo<R> implements RouteInfo<R> {
         }
         this.imperative =
             (returnType.getType() == void.class && !suspended)
-            || !suspended
-            && !reactive
-            && !async
-            && !returnType.getType().equals(Object.class)
-            && (returnType.getType().getPackageName().startsWith("java.") || BeanIntrospector.SHARED.findIntrospection(returnType.getType()).isPresent());
+                || !suspended
+                && !reactive
+                && !async
+                && !returnType.getType().equals(Object.class)
+                && (returnType.getType().getPackageName().startsWith("java.") || BeanIntrospector.SHARED.findIntrospection(returnType.getType()).isPresent());
     }
 
     @Override
